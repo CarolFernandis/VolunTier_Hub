@@ -1,0 +1,92 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #0b0f19;
+  height: 70px;
+}
+
+.logo {
+  height: 56px;
+  margin-left: 30px;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  /* Adjust the space between menu items */
+  gap: 90px;
+  margin-left: auto;
+  margin-top: 15px ;
+
+}
+
+.navbar-menu li a {
+  position: relative;
+  text-decoration: none;
+  color: #ffcc00;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar-menu li a.active {
+  color: #ffcc00;
+}
+
+.custom-dropdown {
+  position: relative;
+  margin-left: 30px; /* adjust gap between menu and login */
+}
+
+.login-icon {
+  height: 37px;
+  cursor: pointer;
+  margin-right:  30px; 
+  margin-bottom: 5px;
+}
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+  z-index: 9999;
+}
+
+.custom-dropdown-menu a {
+  padding: 8px 12px;
+  text-decoration: none;
+  color: black;
+}
+
+.custom-dropdown-menu a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Change text color on hover */
+.navbar-menu li a:hover {
+  color: #f7e6a3;
+}
+
+/* Sliding line from center */
+.navbar-menu li a::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 0;
+  bottom: 0;
+  left: 50%;         /* start from center */
+  background-color: #ffcc00;
+  transition: all 0.3s ease;
+}
+
+/* Expand line on hover */
+.navbar-menu li a:hover::after {
+  width: 100%;
+  left: 0;           /* move line to full width */
+}
