@@ -31,11 +31,11 @@ const App = () => {
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/register" element={<Register />} />  {/* Register route */}
-            <Route path="/login" element={<Login />} />  {/* Legister route */}
+            <Route path="/login" element={<Login />} />  {/* Login route */}
           </Routes>
         </main>
 
-        {/* Footer sticks to bottom */}
+        {/* Footer sticks to bottom - To add the footer to the bottom add </footer> before </div> and </Router> */}
         <Footer />
       </div>
     </Router>
