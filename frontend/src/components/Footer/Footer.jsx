@@ -59,3 +59,4 @@ const Footer = () => {
 };
 
 export default Footer;
+ {/* Footer sticks to bottom - The code is in App.jsx*/} 

@@ -5,7 +5,7 @@ import React from "react";
 import aboutus from "../assets/aboutus.jpg";
 import { Link } from "react-router-dom";
 
-// Section 2
+// Section 2 - Cards
 import vision from "../assets/vision.png";
 import purpose from "../assets/purpose.png";
 import approach from "../assets/approach.png";
@@ -13,7 +13,7 @@ import opportunities from "../assets/opportunities.png";
 import registration from "../assets/registration.png";
 import dashboard from "../assets/dashboard.png";
 
-// Section 3
+// Section 3 - Cards
 import Community from "../assets/Community.jpg";
 import Education from "../assets/Education.jpg";
 import Health from "../assets/Health.jpg";
@@ -68,8 +68,8 @@ export default function About() {
               </p>
 
               {/* Button */} {/* Join Us Button linking to Register */}
-              <Link to="/register" className="btn-custom mt-3">
-                Join Us
+              <Link to="/register">
+              <button className="btn-custom mt-3">Join Us</button>
               </Link>
             </div>
 
