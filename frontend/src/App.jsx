@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar"; //	Navbar → Your top navigation bar (links to Home, About, etc.).
+import Footer from "./components/Footer/Footer"; // Footer → Your footer that stays at the bottom of every page.
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Opportunity from "./pages/Opportunity";
@@ -30,7 +31,7 @@ const App = () => {
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/register" element={<Register />} />  {/* Register route */}
-            <Route path="/login" element={<Login />} />  {/* ✅ Register route */}
+            <Route path="/login" element={<Login />} />  {/* Legister route */}
           </Routes>
         </main>
 
