@@ -1,7 +1,7 @@
 //Opportunity Page
 import React from "react";
 
-import "./Opportunity.css";
+import "./Opportunity.css"; //Link Opportunity css
 
 export default function Opportunity() {
   return (
