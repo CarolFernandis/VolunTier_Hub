@@ -9,6 +9,8 @@ import Blog from "./pages/Blog";
 import Testimonials from "./pages/Testimonials";
 import Faq from "./pages/Faq";
 
+import NewFile from "./pages/NewFile";
+
 import Register from "./pages/Register"; 
 import Login from "./pages/Login"; 
 
@@ -32,6 +34,8 @@ const App = () => {
             <Route path="/faq" element={<Faq />} />
             <Route path="/register" element={<Register />} />  {/* Register route */}
             <Route path="/login" element={<Login />} />  {/* Login route */}
+
+            <Route path="/newfile" element={<NewFile/>} /> {/* Newfile Page */}
           </Routes>
         </main>
 
