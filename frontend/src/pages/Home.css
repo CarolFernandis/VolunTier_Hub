@@ -218,7 +218,6 @@
 }
 
 /* Section 5 - Popular hosts*/
-
 .popular-hosts .card {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 15px;
@@ -262,4 +261,62 @@
 .popular-hosts p {
   color: #555;
   font-size: 0.9rem;
+}
+
+/* Testimonals  Section */
+.testimonials {
+  background: #ffffff;
+}
+
+.testimonial-card {
+  border-radius: 12px;
+  background: #f9fafc;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px);
+}
+
+/* FAQ Section */
+.faq-section img {         /* Left Side Image */
+  width: 110%;   /* makes image bigger */
+  max-width: 110%; /* prevents breaking container */
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: transform 0.4s ease;
+  margin-top: -30px;  /* pushes image upward */
+}
+
+.faq-section img:hover {
+  transform: scale(1.03);
+}
+
+.faq-card {
+  background: #fff;
+  border: 1px solid #f8f7f7;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.faq-wrapper .faq-card {
+  margin-top: 5px; /* adjust value - shift the card down  */
+}
+
+.faq-avatars img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin-left: -10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.faq-avatars img:first-child {
+  margin-left: 0;
+}
+
+.faq-item.open h6 {
+  color: #0d6efd; /* bootstrap primary blue */
 }

@@ -1,6 +1,6 @@
 // Home Page
 import { Link } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Home.css";
 
 //Section 1 - Slides
@@ -14,17 +14,29 @@ import card2homepage from "../assets/card2homepage.png";
 import card3homepage from "../assets/card3homepage.png";
 import card4homepage from "../assets/card4homepage.png";
 
-// Section 2 - Cards
+// Section 3- Cards
 import hosthomepage from "../assets/hosthomepage.jpg";
 import hosthomepage2 from "../assets/hosthomepage2.jpg";
 import hosthomepage3 from "../assets/hosthomepage3.jpg";
 import hosthomepage4 from "../assets/hosthomepage4.jpg";
+
+//Section 5 - Faq Section 
+import faqImage from "../assets/faqImage.jpg";
+
 
 // If you prefer module import instead of using the global, uncomment this:
 // import Carousel from "bootstrap/js/dist/carousel";
 
 export default function Home() {
   const carouselRef = useRef(null);
+
+  // FAQ toggle state
+  const [openIndex, setOpenIndex] = useState(null);
+  const toggleFAQ = (index) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+
 
   useEffect(() => {
     // Use the global bootstrap from the bundle import
@@ -43,6 +55,41 @@ export default function Home() {
 
     return () => carousel.dispose();
   }, []);
+
+
+  // FAQ Data
+  const faqData = [
+   {
+        question: "What is this platform and why is it needed?",
+        answer:
+          "It is a web-based system that connects volunteers with NGOs and non-profits to make volunteering more accessible and impactful.",
+      },
+      {
+        question: "Who can volunteer with VolunTier Hub?",
+        answer:
+          "Anyone passionate about making a difference – students, professionals, retirees, or groups – can volunteer.",
+      },
+      {
+        question: "When should I apply?",
+        answer:
+          "You can apply anytime, but applying earlier ensures better placement and preparation.",
+      },
+      {
+        question: "What benefits does it provide to volunteers?",
+        answer:
+          "Volunteers can explore opportunities that match their skills, register easily, get updates, and track their contributions.",
+      },
+      {
+        question: "What features does the platform provide?",
+        answer:
+          "Advanced search, project registration, communication tools, role-based dashboards, and secure login.",
+      },
+      {
+        question: "Do I need prior experience?",
+        answer:
+          "Not always, many opportunities only require willingness to help.",
+      },
+  ];
 
   return (
     <div>
@@ -316,8 +363,148 @@ export default function Home() {
       </div>
     </div>
   </div>
+</section> 
+
+{/* Testimonials / Impact Stories Section */}
+<section className="testimonials py-5">
+  <div className="container">
+    <h2 className="text-center mb-4 fw-bold">What Volunteers Say</h2>
+    <p className="text-center mb-5 text-muted">
+      Hear inspiring stories from our volunteers who have created impact through Volunteer Yatra.
+    </p>
+
+    <div className="row">
+      {/* Testimonial 1 */}
+      <div className="col-md-4 mb-4">
+        <div className="testimonial-card p-4 h-100 shadow-sm">
+          <div className="d-flex align-items-center mb-3">
+            <img
+              src="https://randomuser.me/api/portraits/women/68.jpg"
+              alt="Volunteer"
+              className="rounded-circle me-3"
+              width="50"
+              height="50"
+            />
+            <div>
+              <h6 className="mb-0 fw-bold">Aditi Sharma</h6>
+              <small className="text-muted">Student Volunteer</small>
+            </div>
+          </div>
+          <p className="text-muted">
+            "Volunteering gave me purpose and helped me grow as a person. I loved connecting with NGOs and learning from real experiences."
+          </p>
+        </div>
+      </div>
+
+      {/* Testimonial 2 */}
+      <div className="col-md-4 mb-4">
+        <div className="testimonial-card p-4 h-100 shadow-sm">
+          <div className="d-flex align-items-center mb-3">
+            <img
+              src="https://randomuser.me/api/portraits/men/45.jpg"
+              alt="Volunteer"
+              className="rounded-circle me-3"
+              width="50"
+              height="50"
+            />
+            <div>
+              <h6 className="mb-0 fw-bold">Rohit Verma</h6>
+              <small className="text-muted">Corporate Volunteer</small>
+            </div>
+          </div>
+          <p className="text-muted">
+            "It’s amazing how Volunteer Yatra simplifies finding opportunities. I’ve contributed to education projects and it feels rewarding."
+          </p>
+        </div>
+      </div>
+
+      {/* Testimonial 3 */}
+      <div className="col-md-4 mb-4">
+        <div className="testimonial-card p-4 h-100 shadow-sm">
+          <div className="d-flex align-items-center mb-3">
+            <img
+              src="https://randomuser.me/api/portraits/women/32.jpg"
+              alt="Volunteer"
+              className="rounded-circle me-3"
+              width="50"
+              height="50"
+            />
+            <div>
+              <h6 className="mb-0 fw-bold">Sneha Iyer</h6>
+              <small className="text-muted">Travel Volunteer</small>
+            </div>
+          </div>
+          <p className="text-muted">
+            "I traveled solo and always felt safe. The hosts were supportive, and I made lifelong friends while giving back to society."
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
+ {/* FAQ section */}
+  <section className="faq-wrapper py-5 " style={{ background: "#fefcfcff" }}>
+        <div className="container">
+        <div className="row align-items-start" style={{ columnGap: "50px" }}>
+            {/* Left Card and image */}
+            <div className="col-lg-4 ">
+               {/* Left side: Image */}
+      <div className="faq-section img">
+        <img
+          src={faqImage}
+          alt="FAQ Illustration"
+          className="img-fluid rounded shadow"
+        />
+      </div>
+
+              <div className="faq-card p-4">
+                <div className="faq-avatars mb-3">
+                  <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User 1" />
+                  <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="User 2" />
+                  <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="User 3" />
+                  <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="User 4" />
+                  <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="User 5" />
+                </div>
+                
+                <p className="text-muted">
+                  We would be happy to help you with whatever questions you have.
+                </p>
+                <button className="btn btn-warning fw-bold">
+                  Ask us Anything →
+                </button>
+              </div>
+            </div>
+
+            {/* Right Accordion */}
+            <div className="col-lg-7">
+              <h2 className="fw-bold mb-4 text-center">Frequently Asked Questions</h2>
+              <div className="faq-list">
+                {faqData.map((faq, index) => (
+                  <div
+                    key={index}
+                    className={`faq-item py-3 border-bottom ${
+                      openIndex === index ? "open" : ""
+                    }`}
+                    onClick={() => toggleFAQ(index)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h6 className="mb-0 fw-bold">{faq.question}</h6>
+                      <span className="fs-4">
+                        {openIndex === index ? "−" : "+"}
+                      </span>
+                    </div>
+                    {openIndex === index && (
+                      <p className="mt-2 text-muted">{faq.answer}</p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Example bottom content */}
       <h1>Home Page</h1>
@@ -325,7 +512,6 @@ export default function Home() {
       <Link to="/newfile">
         <button className="btn btn-primary">Go to New Page</button>
       </Link>
-
 
     </div>
   );
