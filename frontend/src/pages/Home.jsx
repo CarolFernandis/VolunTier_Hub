@@ -413,7 +413,7 @@ export default function Home() {
             </div>
           </div>
           <p className="text-muted">
-            "It’s amazing how Volunteer Yatra simplifies finding opportunities. I’ve contributed to education projects and it feels rewarding."
+            "It’s amazing how Voluntier_Hub simplifies finding opportunities. I’ve contributed to education projects and it feels rewarding."
           </p>
         </div>
       </div>
@@ -444,20 +444,19 @@ export default function Home() {
 </section>
 
  {/* FAQ section */}
-  <section className="faq-wrapper py-5 " style={{ background: "#fefcfcff" }}>
+  <section className="faq-wrapper py-5 " style={{ background: "#f3f3f3ff" }}>
         <div className="container">
         <div className="row align-items-start" style={{ columnGap: "50px" }}>
             {/* Left Card and image */}
-            <div className="col-lg-4 ">
-               {/* Left side: Image */}
-      <div className="faq-section img">
+<div className="col-lg-4 d-flex flex-column align-items-center">
+      {/* Left side: Image */}
+     <div className="faq-part  mb-4">
         <img
           src={faqImage}
           alt="FAQ Illustration"
-          className="img-fluid rounded shadow"
+          className="img-fluid rounded"
         />
       </div>
-
               <div className="faq-card p-4">
                 <div className="faq-avatars mb-3">
                   <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User 1" />
@@ -470,9 +469,9 @@ export default function Home() {
                 <p className="text-muted">
                   We would be happy to help you with whatever questions you have.
                 </p>
-                <button className="btn btn-warning fw-bold">
-                  Ask us Anything →
-                </button>
+                <Link to="/faq">
+          <button className="btn btn-primary mt-3">Learn more</button>
+        </Link>
               </div>
             </div>
 
