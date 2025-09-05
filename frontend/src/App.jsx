@@ -14,6 +14,8 @@ import NewFile from "./pages/NewFile";
 import Register from "./pages/Register"; 
 import Login from "./pages/Login"; 
 
+import BlogVolunteering from "./pages/BlogVolunteering";
+
 
 import "./App.css"; // Add CSS for layout
 
@@ -34,6 +36,11 @@ const App = () => {
             <Route path="/faq" element={<Faq />} />
             <Route path="/register" element={<Register />} />  {/* Register route */}
             <Route path="/login" element={<Login />} />  {/* Login route */}
+
+            
+            <Route path="/blog/volunteering" element={<BlogVolunteering />} />
+            
+
 
             <Route path="/newfile" element={<NewFile/>} /> {/* Newfile Page */}
           </Routes>
