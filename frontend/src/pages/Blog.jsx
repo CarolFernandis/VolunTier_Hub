@@ -1,18 +1,28 @@
-// src/pages/Blog.js
 import React from "react";
 import { Link } from "react-router-dom";
+
+//blog pages images
 import blog1 from "../assets/blog1.jpg";
 import blog2 from "../assets/blog2.jpg";
-import "./Blog.css"; // Make sure this exists
+import blog3 from "../assets/blog3.jpg";
+import blog4 from "../assets/blog4.jpg";
+import blog5 from "../assets/blog5.jpg";
+import blog6 from "../assets/blog6.jpg";
+
+import "./Blog.css"; // css link
 
 export default function Blog() {
   const blogData = [
-    { title: "The Power of Volunteering", image: blog1, link: "/blog/volunteering" },
-    { title: "Challenges in Outreach", image: blog2, link: "/blog/outreach" },
+    { title: "How Volunteering Changed My Life", image: blog1, link: "/blog/volunteering" },
+    { title: "The Struggle to Find the Right Volunteering Opportunity", image: blog2, link: "/blog/outreach" },
+    { title: "The Emotional Rewards of Giving Time", image: blog3, link: "/blog/time" },
+    { title: "Learning Skills Through Volunteering", image: blog4, link: "/blog/learning" },
+    { title: "The Joy of Teamwork in Volunteering", image: blog5, link: "/blog/teamwork" },
+    { title: "Overcoming Challenges While Volunteering", image: blog6, link: "/blog/overcome" },
   ];
 
   return (
-    <div className="container py-5">
+    <div className="container">
       <h1 className="text-center mb-5 fw-bold">Our Blogs</h1>
       <div className="row">
         {blogData.map((blog, index) => (

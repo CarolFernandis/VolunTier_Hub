@@ -1,0 +1,75 @@
+/*Blog Pages*/
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap');
+
+body {
+  background: #f8f9fa;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  max-width: 1500px;
+  margin: 80px auto;
+  padding: 20px 40px;
+}
+
+/* Only affects this specific h1 */
+.main-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 2.8rem;
+  text-align: center;
+  color: #2c3e50;
+  text-decoration: underline;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease, transform 0.3s ease; /* Smooth hover transition */
+}
+
+.main-heading:hover {
+  color: #1a237e;
+}
+
+/* Clean Left + Right Layout */
+.content-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+}
+
+.blog-page5 .side-img{
+  flex: 1;
+  max-width: 320%;
+  width: 100%;
+  max-height: 500px;  /* limit height */
+  height: auto;       /* maintain aspect ratio */
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.blog-page5 .side-img:hover {
+  transform: scale(1.02);
+}
+
+.text-content {
+  flex: 2;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #333;
+}
+
+p {
+  margin-bottom: 1.8em;
+}
+
+p strong {
+  font-weight: 700 !important;
+  color: #9ba2f8 !important;
+  text-decoration: underline !important;
+}
+

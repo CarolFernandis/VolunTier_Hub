@@ -9,12 +9,22 @@ import Blog from "./pages/Blog";
 import Testimonials from "./pages/Testimonials";
 import Faq from "./pages/Faq";
 
+//NewFile
 import NewFile from "./pages/NewFile";
 
+//Login and Register Page
 import Register from "./pages/Register"; 
 import Login from "./pages/Login"; 
 
-import BlogVolunteering from "./pages/BlogVolunteering";
+//Blog pages
+import BlogPage1 from "./pages/BlogPage1";
+import BlogPage2 from "./pages/BlogPage2";
+import BlogPage3 from "./pages/BlogPage3";
+
+import BlogPage4 from "./pages/BlogPage4";
+import BlogPage5 from "./pages/BlogPage5";
+import BlogPage6 from "./pages/BlogPage6";
+
 
 
 import "./App.css"; // Add CSS for layout
@@ -37,9 +47,15 @@ const App = () => {
             <Route path="/register" element={<Register />} />  {/* Register route */}
             <Route path="/login" element={<Login />} />  {/* Login route */}
 
-            
-            <Route path="/blog/volunteering" element={<BlogVolunteering />} />
-            
+            {/* Blog Pages */}
+            <Route path="/blog/volunteering" element={<BlogPage1 />} />  {/* Connects Blog page to another page[Read more]*/}
+            <Route path="/blog/outreach" element={<BlogPage2 />} />
+            <Route path="/blog/time" element={<BlogPage3 />} />
+            <Route path="/blog/learning" element={<BlogPage4 />} />
+            <Route path="/blog/teamwork" element={<BlogPage5 />} />
+            <Route path="/blog/overcome" element={<BlogPage6 />} />
+
+
 
 
             <Route path="/newfile" element={<NewFile/>} /> {/* Newfile Page */}
