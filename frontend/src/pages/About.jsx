@@ -42,7 +42,7 @@ export default function About() {
           <div className="row align-items-center">
             {/* Left Column */}
             <div className="col-lg-7">
-              <h1 className="about-heading">About Us</h1>
+              <h1 className="about-heading ">About us</h1>
               <p
                 style={{ fontSize: "40px", lineHeight: "1.5" }}
                 className="fw-light"
