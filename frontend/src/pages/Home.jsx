@@ -505,12 +505,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Example bottom content */}
-      <h1>Home Page</h1>
-      <p>Welcome to the home page. hello</p>
-      <Link to="/newfile">
-        <button className="btn btn-primary">Go to New Page</button>
-      </Link>
+    
 
     </div>
   );
