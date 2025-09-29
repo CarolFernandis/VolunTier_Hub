@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
+  const [role, setRole] = useState('volunteer');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ email: e.target.email.value, password: e.target.password.value, role });
+  };
   return (
     <div className="register-container">
       <div className="register-box">
@@ -25,12 +31,23 @@ export default function Login() {
         <div className="divider">
           <span>or Log in with</span>
         </div>
-        <form className="register-form">
+        <form className="register-form" onSubmit={handleSubmit}>
           <label htmlFor="email">Email Address</label>
           <input id="email" className="input-field" type="email" />
 
           <label htmlFor="password">Password</label>
           <input id="password" className="input-field" type="password" />
+
+          <div className="role-selection">
+            <label>
+              <input type="radio" name="role" value="volunteer" checked={role === 'volunteer'} onChange={(e) => setRole(e.target.value)} />
+              Volunteer
+            </label>
+            <label>
+              <input type="radio" name="role" value="host" checked={role === 'host'} onChange={(e) => setRole(e.target.value)} />
+              Host
+            </label>
+          </div>
 
           <button className="signup-btn" type="submit">Log In</button>
         </form>

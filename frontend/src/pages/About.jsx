@@ -13,13 +13,27 @@ import opportunities from "../assets/opportunities.png";
 import registration from "../assets/registration.png";
 import dashboard from "../assets/dashboard.png";
 
+              {/* Card 4 */}
+              <div className="card shadow h-100">
+                <img
+                  src="/assets/Plant.jpg"
+                  className="card-img-top"
+                  alt="Environmental Volunteers"
+                />
+                <div className="card-body bg-warning text-dark">
+                  <h5 className="card-title fw-bold">
+                    Environmental Volunteers
+                  </h5>
+                  <p className="card-text">
+                    Helping with environmental projects like cleanups and tree
+                    planting.
+                  </p>
+                </div>
+              </div>
 // Section 3 - Cards
 import Community from "../assets/Community.jpg";
 import Education from "../assets/Education.jpg";
 import Health from "../assets/Health.jpg";
-import Plant from "../assets/Plant.jpg";
-import Skilled from "../assets/Skilled.jpg";
-import Campaign from "../assets/Campaign.jpg";
 
 import "./About.css";
 
@@ -272,7 +286,7 @@ export default function About() {
               {/* Card 4 */}
               <div className="card shadow h-100">
                 <img
-                  src={Plant}
+                  src="/assets/Plant.jpg"
                   className="card-img-top"
                   alt="Environmental Volunteers"
                 />

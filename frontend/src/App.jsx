@@ -25,7 +25,9 @@ import BlogPage4 from "./pages/BlogPage4";
 import BlogPage5 from "./pages/BlogPage5";
 import BlogPage6 from "./pages/BlogPage6";
 
-
+// Dashboard Pages
+import VolunteerDashboard from "./pages/VolunteerDashboard";
+import HostDashboard from "./pages/HostDashboard";
 
 import "./App.css"; // Add CSS for layout
 
@@ -55,8 +57,9 @@ const App = () => {
             <Route path="/blog/teamwork" element={<BlogPage5 />} />
             <Route path="/blog/overcome" element={<BlogPage6 />} />
 
-
-
+            {/* Dashboard Pages */}
+            <Route path="/dashboard/volunteer" element={<VolunteerDashboard />} />
+            <Route path="/dashboard/host" element={<HostDashboard />} />
 
             <Route path="/newfile" element={<NewFile/>} /> {/* Newfile Page */}
           </Routes>

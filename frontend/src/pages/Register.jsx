@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
 
 export default function Register() {
+  const [role, setRole] = useState('volunteer');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ name: e.target.name.value, email: e.target.email.value, password: e.target.password.value, role });
+  };
   return (
     <div className="register-container">
       <div className="register-box">
@@ -25,7 +31,7 @@ export default function Register() {
         <div className="divider">
           <span>or sign up with</span>
         </div>
-        <form className="register-form">
+        <form className="register-form" onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
           <input id="name" className="input-field" type="text" />
 
@@ -34,6 +40,17 @@ export default function Register() {
 
           <label htmlFor="password">Password</label>
           <input id="password" className="input-field" type="password" />
+
+          <div className="role-selection">
+            <label>
+              <input type="radio" name="role" value="volunteer" checked={role === 'volunteer'} onChange={(e) => setRole(e.target.value)} />
+              Volunteer
+            </label>
+            <label>
+              <input type="radio" name="role" value="host" checked={role === 'host'} onChange={(e) => setRole(e.target.value)} />
+              Host
+            </label>
+          </div>
 
           <button className="signup-btn" type="submit">Sign Up</button>
         </form>
