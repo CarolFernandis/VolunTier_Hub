@@ -31,7 +31,11 @@ export default function Login() {
         <div className="divider">
           <span>or Log in with</span>
         </div>
+<<<<<<< HEAD
          <form className="register-form" onSubmit={handleSubmit}>
+=======
+        <form className="register-form" onSubmit={handleSubmit}>
+>>>>>>> bbf298d2b772a637dbf381f0aafcb596cc5ea24a
           <label htmlFor="email">Email Address</label>
           <input id="email" className="input-field" type="email" />
 

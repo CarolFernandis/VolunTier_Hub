@@ -508,6 +508,9 @@ export default function Home() {
       <Link to="/newfile">
         <button className="btn btn-primary">Go to New Page</button>
       </Link>*/}
- </div>
+ </div> 
+
+    </div>
+
   );
 }

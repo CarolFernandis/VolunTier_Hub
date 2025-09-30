@@ -44,6 +44,10 @@ import ForestClean from "./pages/Opportunity/ForestClean";
 
 
 
+// Dashboard Pages
+import VolunteerDashboard from "./pages/VolunteerDashboard";
+import HostDashboard from "./pages/HostDashboard";
+
 import "./App.css"; // Add CSS for layout
 
 const App = () => {
@@ -91,6 +95,9 @@ const App = () => {
              <Route path="/opportunity/forestclean" element={<ForestClean />} />
 
 
+            {/* Dashboard Pages */}
+            <Route path="/dashboard/volunteer" element={<VolunteerDashboard />} />
+            <Route path="/dashboard/host" element={<HostDashboard />} />
 
 
             <Route path="/newfile" element={<NewFile/>} /> {/* Newfile Page */}

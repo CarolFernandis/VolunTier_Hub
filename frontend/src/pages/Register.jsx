@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
+<<<<<<< HEAD
 
+=======
+>>>>>>> bbf298d2b772a637dbf381f0aafcb596cc5ea24a
 
 export default function Register() {
   const [role, setRole] = useState('volunteer');
