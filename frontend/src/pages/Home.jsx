@@ -21,7 +21,7 @@ import hosthomepage3 from "../assets/hosthomepage3.jpg";
 import hosthomepage4 from "../assets/hosthomepage4.jpg";
 
 //Section 5 - Faq Section 
-import faqImage from "../assets/faqImage.jpg";
+import faqImage from "../assets/faqImage.jpeg";
 
 
 // If you prefer module import instead of using the global, uncomment this:
@@ -93,8 +93,6 @@ export default function Home() {
 
   return (
     <div>
-      
-
   {/* Fullscreen Carousel */}
   <div
   ref={carouselRef}   // attach the ref here
@@ -442,57 +440,55 @@ export default function Home() {
     </div>
   </div>
 </section>
-
- {/* FAQ section */}
-  <section className="faq-wrapper py-5 " style={{ background: "#f3f3f3ff" }}>
+ {/* FAQ Section */}
+      <section className="faq-wrapper py-5" style={{ background: "#f3f3f3ff" }}>
         <div className="container">
-        <div className="row align-items-start" style={{ columnGap: "50px" }}>
-            {/* Left Card and image */}
-<div className="col-lg-4 d-flex flex-column align-items-center">
-      {/* Left side: Image */}
-     <div className="faq-part  mb-4">
-        <img
-          src={faqImage}
-          alt="FAQ Illustration"
-          className="img-fluid rounded"
-        />
-      </div>
-              <div className="faq-card p-4">
-                <div className="faq-avatars mb-3">
+          <div className="row align-items-start" style={{ columnGap: "50px" }}>
+            {/* Left Card with Image */}
+            <div className="col-lg-4 d-flex flex-column align-items-center">
+              <div className="faq-card p-3" style={{ width: "100%" }}>
+                {/* Avatar group */}
+                <div className="faq-avatars mb-3 d-flex">
                   <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User 1" />
                   <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="User 2" />
                   <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="User 3" />
                   <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="User 4" />
                   <img src="https://randomuser.me/api/portraits/women/11.jpg" alt="User 5" />
                 </div>
-                
+
+                {/* Text */}
                 <p className="text-muted">
                   We would be happy to help you with whatever questions you have.
                 </p>
+
+                {/* FAQ Image inside card */}
+               <img
+      src={faqImage}
+      alt="FAQ Illustration"
+      className="img-fluid rounded"
+    />
+
+                {/* Button */}
                 <Link to="/faq">
-          <button className="btn btn-primary mt-3">Learn more</button>
-        </Link>
+                  <button className="btn btn-primary mt-2">Learn more</button>
+                </Link>
               </div>
             </div>
 
-            {/* Right Accordion */}
+             {/* Right Accordion */}
             <div className="col-lg-7">
               <h2 className="fw-bold mb-4 text-center">Frequently Asked Questions</h2>
               <div className="faq-list">
                 {faqData.map((faq, index) => (
                   <div
                     key={index}
-                    className={`faq-item py-3 border-bottom ${
-                      openIndex === index ? "open" : ""
-                    }`}
+                    className={`faq-item py-3 border-bottom ${openIndex === index ? "open" : ""}`}
                     onClick={() => toggleFAQ(index)}
                     style={{ cursor: "pointer" }}
                   >
                     <div className="d-flex justify-content-between align-items-center">
                       <h6 className="mb-0 fw-bold">{faq.question}</h6>
-                      <span className="fs-4">
-                        {openIndex === index ? "−" : "+"}
-                      </span>
+                      <span className="fs-4">{openIndex === index ? "−" : "+"}</span>
                     </div>
                     {openIndex === index && (
                       <p className="mt-2 text-muted">{faq.answer}</p>
@@ -501,17 +497,17 @@ export default function Home() {
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Example bottom content */}
+      {/* Example bottom content 
       <h1>Home Page</h1>
       <p>Welcome to the home page. hello</p>
       <Link to="/newfile">
         <button className="btn btn-primary">Go to New Page</button>
-      </Link>
-
-    </div>
+      </Link>*/}
+ </div>
   );
 }

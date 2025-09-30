@@ -1,0 +1,182 @@
+/* src/pages/CleanUp.css */
+
+.clean-up-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.breadcrumb a {
+  text-decoration: none;
+  color: #6c757d;
+  margin-right: 0.3rem;
+}
+.breadcrumb a:hover { text-decoration: underline; }
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+}
+.location {
+  background: #f1f3f5;
+  color: #495057;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* ====== Gallery ====== */
+.gallery-container {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+.main-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.small-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex: 1;
+}
+.small-img-wrapper {
+  position: relative;
+  flex: 1 1 calc(50% - 0.5rem);
+  height: 196px;
+}
+.small-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ====== Main Layout ====== */
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.left-column { flex: 2; }
+.right-column { flex: 1; min-width: 280px; }
+
+/* ====== Sections ====== */
+.experience-section {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.experience-section.light-bg { background: #f8f9fa; }
+.experience-section h2 { color: #000000; margin-bottom: 1rem;  }
+.experience-section h3 { margin-top: 1rem; margin-bottom: 0.5rem; }
+
+/* ====== Badge ====== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.65rem 1.4rem;   /* ⬅ Much bigger padding */
+  margin: 0.35rem;
+  border-radius: 50px;
+  font-size: 1.1rem;         /* ⬅ Bigger text */
+  font-weight: 600;
+}
+
+.badge.primary { background: #0d6efd; color: #fff; }
+.badge.accent { background: #20c997; color: #fff; }
+
+/* ====== Host Card ====== */
+.host-card {
+  background: #edf2fa;
+  color: #030303;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+.host-card img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin-bottom: 0.5rem;
+}
+.verified {
+  background: #20c997;
+  padding: 0.3rem 0.6rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+/* ====== Quick Peek ====== */
+.quick-peek-card {
+  background:#edf2fa;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.quick-peek-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+.quick-peek-item i {
+  font-size: 1.3rem;
+  color: #20c997;
+  margin-right: 0.7rem;
+}
+
+/* Sticky Footer Above Content */
+.sticky-footer {
+  position: relative;
+  background: #fff;
+  border-top: 1px solid #dee2e6;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.apply-btn {
+  background: #20c997;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;   /* ⬅ increased from 0.5rem 1rem */
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;          /* ⬅ increased from default (0.9rem) */
+  font-weight: 600;         /* ⬅ makes text bolder */
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.apply-btn:hover {
+  background: #17b287;
+  transform: translateY(-2px);
+}

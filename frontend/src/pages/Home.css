@@ -69,7 +69,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(37, 37, 37, 0.5); /* adjust opacity (0.3–0.7) */
+  background: rgba(37, 37, 37, 0.10); /* adjust opacity (0.3–0.7) */
   z-index: 1;
 }
 
@@ -85,6 +85,8 @@
  /* Section - 2 : Who we are*/
 .who-we-are {
   background-color: #f8f9fa; /* light grey */
+  padding-top: 2rem;  /* reduce top space */
+  padding-bottom: 2rem; /* reduce bottom space */
 }
 
 .who-we-are h2 {
@@ -279,45 +281,39 @@
 }
 
 /* FAQ Section */
-.faq-part {         /* Left Side Image */
-  width: 100%;          /* full width */
-  height: 250px;        /* same as card height (adjust) */
-  object-fit: cover;    /* crop nicely */
-  border-radius: 15px;
-  transition: transform 0.4s ease;
-  margin-top: -15px;        /* push image further upward */
-  margin-left: -10%;        /* center align after width increase */
-  background: transparent !important;
-  box-shadow: none !important;
+.faq-wrapper {
+  background: #f3f3f3;
 }
 
-.faq-part :hover {
-  transform: scale(1.05);   /* stronger hover zoom */
-}
-
-
-/* FAQ Card */
 .faq-card {
-  width: 100%;          /* full width */
-  height: 250px;        /* same as card height (adjust) */
-  object-fit: cover;    /* crop nicely */
+  width: 100%;
   background: #fff;
-  border: 1px solid #f8f7f7;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* FAQ image inside card */
+.faq-card img {
   width: 100%;
-  position: relative;
-  z-index: 2;               /* keep card above image */
-  margin-top: -15px;        /* push image further upward */
-  margin-left: -10%;        /* center align after width increase */
-  
+  height: 410px;        /* increased height */
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
 }
 
-.faq-wrapper .faq-card {
-  margin-top: 50px;         /* Gap bwtween image and card */
+/* Avatar group */
+.faq-avatars {
+  display: flex;
+  margin-bottom: 1rem;
 }
 
-/* Avatar Group */
 .faq-avatars img {
   width: 42px;
   height: 42px;
@@ -326,13 +322,35 @@
   border: 2px solid #fff;
   margin-left: -10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
 }
 
 .faq-avatars img:first-child {
   margin-left: 0;
 }
 
-/* Open FAQ Question Highlight */
-.faq-item.open h6 {
-  color: #0d6efd; /* bootstrap primary blue */
+.faq-avatars img:hover {
+  transform: scale(1.1);
+}
+
+/* FAQ Accordion */
+.faq-list .faq-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.faq-list .faq-item:hover {
+  background: #f9f9f9;
+}
+
+.faq-list .faq-item.open h6 {
+  color: #0d6efd; /* Bootstrap primary blue */
+}
+
+.faq-list .faq-item p {
+  margin-top: 0.5rem;
+  color: #6c757d; /* muted text */
+  font-size: 0.95rem;
 }

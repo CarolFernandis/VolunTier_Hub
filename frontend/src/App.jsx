@@ -25,6 +25,23 @@ import BlogPage4 from "./pages/BlogPage4";
 import BlogPage5 from "./pages/BlogPage5";
 import BlogPage6 from "./pages/BlogPage6";
 
+//Opportunity page
+import CleanUp from "./pages/Opportunity/CleanUp";
+import FoodBank from "./pages/Opportunity/FoodBank";
+import CareAssistance from "./pages/Opportunity/CareAssistance";
+import Medical from "./pages/Opportunity/Medical";
+import FoodDonation from "./pages/Opportunity/FoodDonation";
+import DonationCamp from "./pages/Opportunity/DonationCamp";
+import PlantDay from "./pages/Opportunity/PlantDay";
+import SeniorCitizens from "./pages/Opportunity/SeniorCitizens";
+import RuralSchools from "./pages/Opportunity/RuralSchools";
+import FarmWork from "./pages/Opportunity/FarmWork";
+import MiddayMeal from "./pages/Opportunity/MiddayMeal";
+import AnimalShelter from "./pages/Opportunity/AnimalShelter";
+import CleanCamp from "./pages/Opportunity/CleanCamp";
+import DogShelter from "./pages/Opportunity/DogShelter";
+import ForestClean from "./pages/Opportunity/ForestClean";
+
 
 
 import "./App.css"; // Add CSS for layout
@@ -54,6 +71,24 @@ const App = () => {
             <Route path="/blog/learning" element={<BlogPage4 />} />
             <Route path="/blog/teamwork" element={<BlogPage5 />} />
             <Route path="/blog/overcome" element={<BlogPage6 />} />
+
+
+            {/* Opportunity Pages */}
+             <Route path="/opportunity/cleanup" element={<CleanUp />} />
+             <Route path="/opportunity/foodbank" element={<FoodBank />} />
+             <Route path="/opportunity/careassistance" element={<CareAssistance />} />
+             <Route path="/opportunity/medical" element={<Medical />} />
+             <Route path="/opportunity/fooddonation" element={<FoodDonation />} />
+             <Route path="/opportunity/donationcamp" element={<DonationCamp />} />
+             <Route path="/opportunity/plantday" element={<PlantDay />} />
+             <Route path="/opportunity/seniorcitizens" element={<SeniorCitizens />} />
+             <Route path="/opportunity/ruralschools" element={<RuralSchools />} />
+             <Route path="/opportunity/farmwork" element={<FarmWork />} />
+             <Route path="/opportunity/middaymeal" element={<MiddayMeal />} />
+             <Route path="/opportunity/animalshelter" element={<AnimalShelter />} />
+             <Route path="/opportunity/cleancamp" element={<CleanCamp />} />
+             <Route path="/opportunity/dogshelter" element={<DogShelter />} />
+             <Route path="/opportunity/forestclean" element={<ForestClean />} />
 
 
 

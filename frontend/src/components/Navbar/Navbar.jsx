@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import VolunTier_Hub from "../../assets/VolunTier_Hub.png";
 import login from "../../assets/login.png";
 import "./Navbar.css";
@@ -21,7 +21,11 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <img src={VolunTier_Hub} alt="Logo" className="logo" />
+     <Link to="/">
+         <img src={VolunTier_Hub}
+          alt="Logo" 
+          className="logo" />
+     </Link>
 
       <ul className="navbar-menu">
         <li><NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>Home</NavLink></li>
