@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Register.css";
-<<<<<<< HEAD
-
-=======
->>>>>>> bbf298d2b772a637dbf381f0aafcb596cc5ea24a
 
 export default function Register() {
   const [role, setRole] = useState('volunteer');
@@ -35,7 +31,7 @@ export default function Register() {
         <div className="divider">
           <span>or sign up with</span>
         </div>
-        <form className="register-form" onSubmit={handleSubmit}>
+         <form className="register-form" onSubmit={handleSubmit}>
           <label htmlFor="name">Name</label>
           <input id="name" className="input-field" type="text" />
 

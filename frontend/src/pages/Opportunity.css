@@ -25,11 +25,9 @@
 }
 
 .opp-card {
-<<<<<<< HEAD
+
     background-color: #f7f1f1;
-=======
-    background-color: #ede7a2;
->>>>>>> bbf298d2b772a637dbf381f0aafcb596cc5ea24a
+    background-color: #f7f7f4;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
@@ -59,8 +57,4 @@
     height: 200px;
     object-fit: cover;
     margin-bottom: 10px;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> bbf298d2b772a637dbf381f0aafcb596cc5ea24a
