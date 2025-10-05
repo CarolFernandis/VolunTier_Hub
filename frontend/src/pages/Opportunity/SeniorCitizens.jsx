@@ -1,13 +1,17 @@
-// src/pages/CleanUp.jsx
-import React from "react";
-import "./SeniorCitizens.css"; // Separate CSS file
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./SeniorCitizens.css";
 
 // --- Gallery Images ---
 const galleryImages = [
-  "https://i.pinimg.com/1200x/fd/5d/ed/fd5ded65a5e67bb3fdd0be7faa8954b0.jpg",
-  "https://i.pinimg.com/1200x/23/a1/31/23a13123d2c9e35e721f8f79a8a43b73.jpg",
-  "https://i.pinimg.com/1200x/69/2f/ae/692fae5ea13ec320ac3cc5b0207d47c0.jpg",
-  "https://i.pinimg.com/736x/d4/65/8f/d4658f51c25e5ccf8296d3b36e75acda.jpg",
+  "https://i.pinimg.com/736x/e0/9c/69/e09c6927ff8298ec400004bebf51bfc8.jpg",
+  "https://i.pinimg.com/1200x/a2/9d/e1/a29de1c01bd1fa35823b2f0f98207b56.jpg",
+  "https://i.pinimg.com/736x/60/ae/f9/60aef963843983de4086b5cf2639f5a8.jpg",
+  "https://i.pinimg.com/736x/1f/f4/47/1ff447b91a440df044b535674b43a9c1.jpg",
+  "https://i.pinimg.com/736x/64/31/2c/64312c9f6380036f95e24c7b93e1ad5a.jpg",
+  "https://i.pinimg.com/736x/b3/63/a1/b363a1508774d42c17950679fe23eed8.jpg",
+  "https://i.pinimg.com/1200x/6e/1c/54/6e1c54f0c51f653496cb39488d6a8235.jpg",
+  "https://i.pinimg.com/1200x/3c/40/fb/3c40fbf47a401bfeeb376d4601ba4be3.jpg",
 ];
 
 // --- Experience Data ---
@@ -21,15 +25,15 @@ const experienceData = {
       "https://i.pinimg.com/1200x/6a/d1/57/6ad157c8278e090a7151341adc8eaaa6.jpg",
   },
   details: {
-    locationName: "Hostel in Manali, Himachal Pradesh",
-    title: "Volunteer in Kulu",
+    locationName: "Hostel in Kalyan",
+    title: "Volunteer in Senior Citizens",
     header: "About This Experience",
     intro:
-      "Are you passionate about nature, hospitality, and creating memorable experiences? Join us as a volunteer at our beautiful property in the serene landscapes of Himachal Pradesh.",
+      "In Kalyan, amidst the clamor of daily life in Mumbai, there are seniors who simply need a helping hand with tasks we take for granted; if lending your time means preserving the dignity and comfort of an elder in your community, is there any reason to delay offering the compassion that makes a house feel like a home? Join us in making their golden years truly shine.",
     tasks: ["Content creation", "Digital marketing"],
     offer: [
       "Free accommodation and meals",
-      "A chance to experience the breathtaking beauty of Himachal",
+      "A chance to experience the community service",
       "A friendly and collaborative environment",
     ],
   },
@@ -53,50 +57,78 @@ const experienceData = {
     totalVolunteersNeeded: 4,
   },
   locationDetails:
-    "Are you passionate about travel, hospitality, and music? We are dedicated to providing serene and rejuvenating getaways, and are looking for volunteers to join our team.",
+    "Are you passionate about dogs, animal welfare, and community service? We are dedicated to providing a safe, loving, and nurturing environment for dogs awaiting their forever homes, and are looking for volunteers to join our team.",
 };
 
 // --- Badge Component ---
-const Badge = ({ children, type = "primary", icon }) => {
-  return (
-    <span className={`badge ${type}`}>
-      {icon && <i className={`bi bi-${icon} me-1`}></i>}
-      {children}
-    </span>
-  );
-};
+const Badge = ({ children, icon }) => (
+  <span className="sec-badge">
+    {icon && <i className={`bi bi-${icon} me-1`}></i>}
+    {children}
+  </span>
+);
 
 // --- Quick Peek Item ---
 const QuickPeekItem = ({ icon, text }) => (
-  <div className="quick-peek-item">
+  <div className="sec-quick-item">
     <i className={`bi bi-${icon}`}></i>
     <span>{text}</span>
   </div>
 );
 
-// --- Image Gallery ---
+// --- Image Gallery with "+X More" ---
 const ImageGallery = ({ images }) => {
-  if (!images || images.length === 0) return null;
-  const mainImage = images[0];
-  const smallImages = images.slice(1, 4);
-  const remainingCount = images.length - 4;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const maxSmallImages = 3;
+  const smallImages = images.slice(1, 1 + maxSmallImages);
+  const remainingCount = images.length - 1 - maxSmallImages;
+
+  const openModal = (index) => {
+    setCurrentIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+  const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className="gallery-container">
-      <div className="main-image">
-        <img src={mainImage} alt="Main view" />
+    <>
+      <div className="sec-gallery-container">
+        <div className="sec-main-image" onClick={() => openModal(0)}>
+          <img src={images[0]} alt="Main view" />
+        </div>
+        <div className="sec-small-images">
+          {smallImages.map((img, idx) => (
+            <div className="sec-small-wrapper" key={idx} onClick={() => openModal(idx + 1)}>
+              <img src={img} alt={`Detail ${idx + 1}`} />
+            </div>
+          ))}
+          {remainingCount > 0 && (
+            <div
+              className="sec-small-wrapper sec-overlay-wrapper"
+              onClick={() => openModal(maxSmallImages + 1)}
+            >
+              <img src={images[maxSmallImages + 1]} alt="More images" />
+              <div className="sec-overlay">+{remainingCount} more</div>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="small-images">
-        {smallImages.map((img, idx) => (
-          <div className="small-img-wrapper" key={idx}>
-            <img src={img} alt={`Hostel detail ${idx + 1}`} />
-            {idx === smallImages.length - 1 && remainingCount > 0 && (
-              <div className="overlay">+{remainingCount} more</div>
-            )}
+
+      {isModalOpen && (
+        <div className="sec-modal-overlay" onClick={closeModal}>
+          <div className="sec-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="sec-close-btn" onClick={closeModal}>&times;</button>
+            <button className="sec-prev-btn" onClick={prevImage}>&#10094;</button>
+            <img src={images[currentIndex]} alt="Zoomed" />
+            <button className="sec-next-btn" onClick={nextImage}>&#10095;</button>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -104,71 +136,73 @@ const ImageGallery = ({ images }) => {
 export default function SeniorCitizens() {
   const { host, details, work, inclusions, quickPeek, requirements, locationDetails } = experienceData;
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+  const handleApplyClick = () => {
+    if (!isLoggedIn) {
+      setShowLoginPrompt(true);
+    } else {
+      window.location.href = "/apply";
+    }
+  };
+
   return (
-    <div className="clean-up-container">
-      {/* Top Breadcrumb & Title */}
-      <div className="breadcrumb">
-        <a href="#">Opportunity</a> / <a href="#">Himachal Pradesh</a> / Manali
+    <div className="sec-container">
+      <h1 className="sec-page-heading">Volunteer Opportunities at Kalyan</h1>
+
+      <div className="sec-breadcrumb">
+        <a href="#">Opportunity</a> / <a href="#">Mumbai</a> / Kalyan
       </div>
       <h1>{details.title}</h1>
-      <span className="location">{details.locationName}</span>
+      <span className="sec-location">{details.locationName}</span>
 
-      {/* Image Gallery */}
       <ImageGallery images={galleryImages} />
 
-      {/* Main Content */}
-      <div className="main-content">
-        {/* Left Column */}
-        <div className="left-column">
-          {/* About Experience */}
-          <section className="experience-section">
+      <div className="sec-main-content">
+        <div className="sec-left-column">
+          <section className="sec-experience-section">
             <h2>{details.header}</h2>
             <p>{details.intro}</p>
-            <div className="tasks">
+            <div className="sec-tasks">
               {details.tasks.map((task, idx) => (
-                <Badge key={idx} type="primary" icon="check-circle">
-                  {task}
-                </Badge>
+                <Badge key={idx} icon="check-circle">{task}</Badge>
               ))}
             </div>
             <h3>What You Get:</h3>
-            <ul>
+            <div className="sec-offers">
               {details.offer.map((item, idx) => (
-                <li key={idx}>
+                <div className="sec-offer-item" key={idx}>
                   <i className="bi bi-star-fill"></i> {item}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
-          {/* Work & Qualities */}
-          <section className="experience-section light-bg">
-            <h2>Commitment and Skills</h2>
-            <div className="workload">
-              <Badge type="accent" icon="clock-history">{work.hoursPerWeek}</Badge>
+          <section className="sec-experience-section sec-light-bg">
+            <h2>Commitment & Skills</h2>
+            <div className="sec-workload">
+              <Badge icon="clock-history">{work.hoursPerWeek}</Badge>
               {work.roles.map((role, idx) => (
-                <Badge key={idx} type="accent" icon="code-slash">{role}</Badge>
+                <Badge key={idx} icon="code-slash">{role}</Badge>
               ))}
-              <Badge type="primary" icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
+              <Badge icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
             </div>
-            <div className="qualities">
-              {work.qualities.map((quality, idx) => (
-                <Badge key={idx} type="primary">{quality}</Badge>
-              ))}
+            <div className="sec-qualities">
+              {work.qualities.map((q, idx) => <Badge key={idx}>{q}</Badge>)}
             </div>
           </section>
 
-          {/* Inclusions & Location */}
-          <section className="experience-section">
+          <section className="sec-experience-section">
             <h2>Inclusions & Location</h2>
-            <div className="inclusions">
+            <div className="sec-inclusions">
               <div>
                 <h4>Stay & Food</h4>
-                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
               <div>
                 <h4>Amenities</h4>
-                {inclusions.amenities.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.amenities.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
             </div>
             <h4>About the Location</h4>
@@ -176,19 +210,16 @@ export default function SeniorCitizens() {
           </section>
         </div>
 
-        {/* Right Column */}
-        <div className="right-column">
-          {/* Host Card */}
-          <div className="host-card">
+        <div className="sec-right-column">
+          <div className="sec-host-card">
             <h2>Meet Your Host</h2>
             <img src={host.hostImageUrl} alt={host.name} />
             <h3>{host.name}</h3>
-            {host.verified && <span className="verified">Verified Host</span>}
+            {host.verified && <span className="sec-verified">Verified Host</span>}
             <p>{host.description}</p>
           </div>
 
-          {/* Quick Peek Card */}
-          <div className="quick-peek-card">
+          <div className="sec-quick-peek-card">
             <h2>Quick Peek</h2>
             <QuickPeekItem icon="house-door" text={quickPeek.type} />
             <QuickPeekItem icon="people" text={quickPeek.volunteersRequired} />
@@ -197,16 +228,25 @@ export default function SeniorCitizens() {
         </div>
       </div>
 
-       {/* Sticky Footer Above Content */}
-      <div className="sticky-footer mt-4">
+      <div className="sec-sticky-footer mt-4">
         <p>
           <span>{requirements.minimumStay}</span> Min. Stay | <span>{requirements.totalVolunteersNeeded}</span> Volunteers Needed
         </p>
-        <button className="apply-btn">
+        <button className="sec-apply-btn" onClick={handleApplyClick}>
           <i className="bi bi-send me-2"></i> APPLY NOW
         </button>
       </div>
-  
+
+      {showLoginPrompt && (
+        <div className="sec-login-overlay">
+          <div className="sec-login-content advanced">
+            <button className="sec-close-btn" onClick={() => setShowLoginPrompt(false)}>&times;</button>
+            <h3>Almost There!</h3>
+            <p>We noticed you're not logged in yet. Please login as a volunteer to apply for this opportunity.</p>
+            <Link to="/login" className="sec-login-btn">Login as Volunteer</Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

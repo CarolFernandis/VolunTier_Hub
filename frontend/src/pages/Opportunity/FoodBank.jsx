@@ -1,35 +1,39 @@
-// src/pages/FoodBank.jsx
-import React from "react";
-import "./FoodBank.css"; // Separate CSS file
+import React, { useState } from "react"; 
+import { Link } from "react-router-dom";
+import "./FoodBank.css";
 
 // --- Gallery Images ---
 const galleryImages = [
-  "https://i.pinimg.com/1200x/fd/5d/ed/fd5ded65a5e67bb3fdd0be7faa8954b0.jpg",
-  "https://i.pinimg.com/1200x/23/a1/31/23a13123d2c9e35e721f8f79a8a43b73.jpg",
-  "https://i.pinimg.com/1200x/69/2f/ae/692fae5ea13ec320ac3cc5b0207d47c0.jpg",
-  "https://i.pinimg.com/736x/d4/65/8f/d4658f51c25e5ccf8296d3b36e75acda.jpg",
+  "https://i.pinimg.com/1200x/bd/11/2f/bd112f1cf58d3a9b69d753825b59322e.jpg",
+  "https://i.pinimg.com/1200x/75/61/76/756176f084852845710b7d093d45abe4.jpg",
+  "https://i.pinimg.com/1200x/b4/9b/06/b49b064a6419629b825cf499553a67a4.jpg",
+  "https://i.pinimg.com/1200x/c6/0d/94/c60d94adbd71de1f93b69992d4c3fff3.jpg",
+  "https://i.pinimg.com/736x/e0/45/73/e0457372e3a945685feb72a17b9f0792.jpg",
+  "https://i.pinimg.com/736x/01/cb/59/01cb594e81b8f206112381272dece68b.jpg",
+  "https://i.pinimg.com/736x/2f/1b/09/2f1b093f3af921bc3c41e8003017f76d.jpg",
+  "https://i.pinimg.com/1200x/ab/31/b3/ab31b372a3acde6db55c7195d1aa1b89.jpg",
 ];
 
 // --- Experience Data ---
 const experienceData = {
   host: {
-    name: "Vishal",
+    name: "Sahil",
     verified: true,
     description:
       "Offering a garden and mountain view, our stay is located in Nagar, 25 km from Hidimba Devi Temple and 22 km from Tibetan Monastery.",
     hostImageUrl:
-      "https://i.pinimg.com/1200x/6a/d1/57/6ad157c8278e090a7151341adc8eaaa6.jpg",
+      "https://i.pinimg.com/736x/d2/95/e9/d295e952fda41fa6524ff2ccc33e17b6.jpg",
   },
   details: {
-    locationName: "Hostel in Manali, Himachal Pradesh",
-    title: "Volunteer in Kulu",
+    locationName: "Hostel in Kagal",
+    title: "Volunteer in Food Distribution",
     header: "About This Experience",
     intro:
-      "Are you passionate about nature, hospitality, and creating memorable experiences? Join us as a volunteer at our beautiful property in the serene landscapes of Himachal Pradesh.",
+      "When children in Kolhapur go to bed with empty stomachs, is it right for us to live with the comfort of our full pantry, knowing we have the power to share? If a single morning of your effort can turn a day of hunger into a day of hope, can your heart truly afford to stay away?",
     tasks: ["Content creation", "Digital marketing"],
     offer: [
       "Free accommodation and meals",
-      "A chance to experience the breathtaking beauty of Himachal",
+      "A chance to experience the community service",
       "A friendly and collaborative environment",
     ],
   },
@@ -53,50 +57,78 @@ const experienceData = {
     totalVolunteersNeeded: 4,
   },
   locationDetails:
-    "Are you passionate about travel, hospitality, and music? We are dedicated to providing serene and rejuvenating getaways, and are looking for volunteers to join our team.",
+    "Are you passionate about dogs, animal welfare, and community service? We are dedicated to providing a safe, loving, and nurturing environment for dogs awaiting their forever homes, and are looking for volunteers to join our team.",
 };
 
 // --- Badge Component ---
-const Badge = ({ children, type = "primary", icon }) => {
-  return (
-    <span className={`badge ${type}`}>
-      {icon && <i className={`bi bi-${icon} me-1`}></i>}
-      {children}
-    </span>
-  );
-};
+const Badge = ({ children, icon }) => (
+  <span className="fb-badge">
+    {icon && <i className={`bi bi-${icon} me-1`}></i>}
+    {children}
+  </span>
+);
 
 // --- Quick Peek Item ---
 const QuickPeekItem = ({ icon, text }) => (
-  <div className="quick-peek-item">
+  <div className="fb-quick-item">
     <i className={`bi bi-${icon}`}></i>
     <span>{text}</span>
   </div>
 );
 
-// --- Image Gallery ---
+// --- Image Gallery with "+X More" ---
 const ImageGallery = ({ images }) => {
-  if (!images || images.length === 0) return null;
-  const mainImage = images[0];
-  const smallImages = images.slice(1, 4);
-  const remainingCount = images.length - 4;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const maxSmallImages = 3;
+  const smallImages = images.slice(1, 1 + maxSmallImages);
+  const remainingCount = images.length - 1 - maxSmallImages;
+
+  const openModal = (index) => {
+    setCurrentIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+  const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className="gallery-container">
-      <div className="main-image">
-        <img src={mainImage} alt="Main view" />
+    <>
+      <div className="fb-gallery-container">
+        <div className="fb-main-image" onClick={() => openModal(0)}>
+          <img src={images[0]} alt="Main view" />
+        </div>
+        <div className="fb-small-images">
+          {smallImages.map((img, idx) => (
+            <div className="fb-small-wrapper" key={idx} onClick={() => openModal(idx + 1)}>
+              <img src={img} alt={`Detail ${idx + 1}`} />
+            </div>
+          ))}
+          {remainingCount > 0 && (
+            <div
+              className="fb-small-wrapper fb-overlay-wrapper"
+              onClick={() => openModal(maxSmallImages + 1)}
+            >
+              <img src={images[maxSmallImages + 1]} alt="More images" />
+              <div className="fb-overlay">+{remainingCount} more</div>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="small-images">
-        {smallImages.map((img, idx) => (
-          <div className="small-img-wrapper" key={idx}>
-            <img src={img} alt={`Hostel detail ${idx + 1}`} />
-            {idx === smallImages.length - 1 && remainingCount > 0 && (
-              <div className="overlay">+{remainingCount} more</div>
-            )}
+
+      {isModalOpen && (
+        <div className="fb-modal-overlay" onClick={closeModal}>
+          <div className="fb-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="fb-close-btn" onClick={closeModal}>&times;</button>
+            <button className="fb-prev-btn" onClick={prevImage}>&#10094;</button>
+            <img src={images[currentIndex]} alt="Zoomed" />
+            <button className="fb-next-btn" onClick={nextImage}>&#10095;</button>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -104,71 +136,76 @@ const ImageGallery = ({ images }) => {
 export default function FoodBank() {
   const { host, details, work, inclusions, quickPeek, requirements, locationDetails } = experienceData;
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+  const handleApplyClick = () => {
+    if (!isLoggedIn) {
+      setShowLoginPrompt(true);
+    } else {
+      window.location.href = "/apply";
+    }
+  };
+
   return (
-    <div className="clean-up-container">
-      {/* Top Breadcrumb & Title */}
-      <div className="breadcrumb">
-        <a href="#">Opportunity</a> / <a href="#">Himachal Pradesh</a> / Manali
+    <div className="fb-container">
+      <h1 className="fb-page-heading">Volunteer Opportunities at Kolhapur</h1>
+
+      <div className="fb-breadcrumb">
+        <a href="#">Opportunity</a> / <a href="#">Kagal</a> / Kolhapur
       </div>
       <h1>{details.title}</h1>
-      <span className="location">{details.locationName}</span>
+      <span className="fb-location">{details.locationName}</span>
 
-      {/* Image Gallery */}
       <ImageGallery images={galleryImages} />
 
-      {/* Main Content */}
-      <div className="main-content">
-        {/* Left Column */}
-        <div className="left-column">
-          {/* About Experience */}
-          <section className="experience-section">
+      <div className="fb-main-content">
+        <div className="fb-left-column">
+          {/* Experience Section */}
+          <section className="fb-experience-section">
             <h2>{details.header}</h2>
             <p>{details.intro}</p>
-            <div className="tasks">
+            <div className="fb-tasks">
               {details.tasks.map((task, idx) => (
-                <Badge key={idx} type="primary" icon="check-circle">
-                  {task}
-                </Badge>
+                <Badge key={idx} icon="check-circle">{task}</Badge>
               ))}
             </div>
             <h3>What You Get:</h3>
-            <ul>
+            <div className="fb-offers">
               {details.offer.map((item, idx) => (
-                <li key={idx}>
+                <div className="fb-offer-item" key={idx}>
                   <i className="bi bi-star-fill"></i> {item}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
-          {/* Work & Qualities */}
-          <section className="experience-section light-bg">
-            <h2>Commitment and Skills</h2>
-            <div className="workload">
-              <Badge type="accent" icon="clock-history">{work.hoursPerWeek}</Badge>
+          {/* Commitment Section */}
+          <section className="fb-experience-section fb-light-bg">
+            <h2>Commitment & Skills</h2>
+            <div className="fb-workload">
+              <Badge icon="clock-history">{work.hoursPerWeek}</Badge>
               {work.roles.map((role, idx) => (
-                <Badge key={idx} type="accent" icon="code-slash">{role}</Badge>
+                <Badge key={idx} icon="code-slash">{role}</Badge>
               ))}
-              <Badge type="primary" icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
+              <Badge icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
             </div>
-            <div className="qualities">
-              {work.qualities.map((quality, idx) => (
-                <Badge key={idx} type="primary">{quality}</Badge>
-              ))}
+            <div className="fb-qualities">
+              {work.qualities.map((q, idx) => <Badge key={idx}>{q}</Badge>)}
             </div>
           </section>
 
-          {/* Inclusions & Location */}
-          <section className="experience-section">
+          {/* Inclusions Section */}
+          <section className="fb-experience-section">
             <h2>Inclusions & Location</h2>
-            <div className="inclusions">
+            <div className="fb-inclusions">
               <div>
                 <h4>Stay & Food</h4>
-                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
               <div>
                 <h4>Amenities</h4>
-                {inclusions.amenities.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.amenities.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
             </div>
             <h4>About the Location</h4>
@@ -176,19 +213,18 @@ export default function FoodBank() {
           </section>
         </div>
 
-        {/* Right Column */}
-        <div className="right-column">
+        <div className="fb-right-column">
           {/* Host Card */}
-          <div className="host-card">
+          <div className="fb-host-card">
             <h2>Meet Your Host</h2>
             <img src={host.hostImageUrl} alt={host.name} />
             <h3>{host.name}</h3>
-            {host.verified && <span className="verified">Verified Host</span>}
+            {host.verified && <span className="fb-verified">Verified Host</span>}
             <p>{host.description}</p>
           </div>
 
-          {/* Quick Peek Card */}
-          <div className="quick-peek-card">
+          {/* Quick Peek */}
+          <div className="fb-quick-peek-card">
             <h2>Quick Peek</h2>
             <QuickPeekItem icon="house-door" text={quickPeek.type} />
             <QuickPeekItem icon="people" text={quickPeek.volunteersRequired} />
@@ -197,16 +233,27 @@ export default function FoodBank() {
         </div>
       </div>
 
-       {/* Sticky Footer Above Content */}
-      <div className="sticky-footer mt-4">
+      {/* Sticky Footer */}
+      <div className="fb-sticky-footer mt-4">
         <p>
           <span>{requirements.minimumStay}</span> Min. Stay | <span>{requirements.totalVolunteersNeeded}</span> Volunteers Needed
         </p>
-        <button className="apply-btn">
+        <button className="fb-apply-btn" onClick={handleApplyClick}>
           <i className="bi bi-send me-2"></i> APPLY NOW
         </button>
       </div>
-  
+
+      {/* Login Modal */}
+      {showLoginPrompt && (
+        <div className="fb-login-overlay">
+          <div className="fb-login-content advanced">
+            <button className="fb-close-btn" onClick={() => setShowLoginPrompt(false)}>&times;</button>
+            <h3>Almost There!</h3>
+            <p>We noticed you're not logged in yet. Please login as a volunteer to apply for this opportunity.</p>
+            <Link to="/login" className="fb-login-btn">Login as Volunteer</Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

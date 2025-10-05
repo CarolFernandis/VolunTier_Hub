@@ -1,6 +1,4 @@
-/* ================================
-   ✨ Overall Page Styling
-================================ */
+/* Testimonials */
 .testimonials-page {
   background-color: #f9fafb;
   min-height: 100vh;
@@ -30,18 +28,14 @@
   padding: 0 20px;
 }
 
-/* ================================
-   ✨ Testimonial Grid Layout
-================================ */
+/* Testimonial Grid Layout */
 .testimonial-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 25px;
 }
 
-/* ================================
-   ✨ Testimonial Card
-================================ */
+/* Testimonial Card */
 .testimonial-card {
   background: #ffffff;
   border-radius: 16px;
@@ -70,9 +64,7 @@
   pointer-events: none;
 }
 
-/* ================================
-   ✨ Testimonial Content
-================================ */
+/*Testimonial Content */
 .testimonial-content p {
   font-size: 16px;
   line-height: 1.6;
@@ -88,9 +80,7 @@
   user-select: none;
 }
 
-/* ================================
-   ✨ Author Section
-================================ */
+/* Author Section */
 .testimonial-author {
   display: flex;
   align-items: center;
@@ -123,9 +113,7 @@
   color: #777;
 }
 
-/* ================================
-   ✨ Responsive Adjustments
-================================ */
+/* Responsive Adjustments */
 @media (max-width: 992px) {
   .section-title {
     font-size: 2rem;

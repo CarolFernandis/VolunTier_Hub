@@ -9,7 +9,6 @@ import SeniorHelp02 from "../assets/SeniorHelp02.jpg";
 import MedicalHelp01 from "../assets/MedicalHelp01.jpg";
 import FoodDonation02 from "../assets/FoodDonation02.jpg";
 import MedicalHelp02 from "../assets/MedicalHelp02.jpg";
-import Plant from "../assets/Plant.jpeg";
 import SeniorHelp03 from "../assets/SeniorHelp03.jpg";
 import SchoolHelp01 from "../assets/SchoolHelp01.jpg";
 import FieldWork01 from "../assets/FieldWork01.jpg";
@@ -17,6 +16,7 @@ import FoodDonation03 from "../assets/FoodDonation03.jpg";
 import AnimalHelp01 from "../assets/AnimalHelp01.jpg";
 import CleanUp02 from "../assets/CleanUp02.jpeg";
 import AnimalHelp02 from "../assets/AnimalHelp02.jpg";
+import PlantTree01 from "../assets/PlantTree01.jpg";
 
 import "./Opportunity.css"; // Link your CSS
 
@@ -28,15 +28,16 @@ export default function Opportunity() {
     { id: 4, title: "Medical Assistance", location: "Nagpur", description: "Assist Medical Check-ups in villages.", date: "2025-12-11", image: MedicalHelp01, link: "/opportunity/medical" },
     { id: 5, title: "Food Donation Camp", location: "Moshi, Pune", description: "Help in Serving and Distributing food in local communities.", date: "2025-10-08", image: FoodDonation02, link: "/opportunity/fooddonation" },
     { id: 6, title: "Blood Donation Camp", location: "Solapur", description: "Help and Volunteer in Blood Donation camp.", date: "2025-11-06", image: MedicalHelp02, link: "/opportunity/donationcamp" },
-    { id: 7, title: "Tree Plantation Day", location: "Pune", description: "Celebrate the GoGreen Moment with our students.", date: "2025-10-25", image: Plant, link: "/opportunity/plantday" },
     { id: 8, title: "Assist Senior Citizens", location: "Kalyan, Mumbai", description: "Assist seniors with daily activities and companionship.", date: "2025-12-21", image: SeniorHelp03, link: "/opportunity/seniorcitizens" },
     { id: 9, title: "Helping Rural Schools", location: "Borgaon, Beed", description: "Volunteer rural schools by teaching skills.", date: "2025-09-18", image: SchoolHelp01, link: "/opportunity/ruralschools" },
     { id: 10, title: "Farm Work Assistance", location: "Nashik", description: "Help us with different farming activities.", date: "2025-10-19", image: FieldWork01, link: "/opportunity/farmwork" },
-    { id: 11, title: "Organizing Mid-day Meals", location: "Los Angeles", description: "Help sort and distribute food to those in need.", date: "2025-11-20", image: FoodDonation03, link: "/opportunity/middaymeal" },
+    { id: 11, title: "Organizing Mid-day Meals", location: "Moshi, Pune", description: "Help sort and distribute food to those in need.", date: "2025-11-20", image: FoodDonation03, link: "/opportunity/middaymeal" },
     { id: 12, title: "Help Animal Shelter", location: "Mahabaleshwar", description: "Assist shelter animals by feeding, nursing and petting them.", date: "2025-09-25", image: AnimalHelp01, link: "/opportunity/animalshelter" },
     { id: 13, title: "Garbage Cleaning Camp", location: "Viman Nagar, Pune", description: "Join us to clean the nearby parks.", date: "2025-07-15", image: CleanUp02, link: "/opportunity/cleancamp" },
     { id: 14, title: "Volunteer Dogs Shelter", location: "Talegaon", description: "Nurse and help the shelter dogs.", date: "2025-08-20", image: AnimalHelp02, link: "/opportunity/dogshelter" },
     { id: 15, title: "Forest Cleaning Drive", location: "Chiplun, Kokan", description: "Participate in Go-Green drive by helping us.", date: "2025-07-25", image: CleanUp03, link: "/opportunity/forestclean" },
+    { id: 16, title: "Tree Plantation", location: "Gujarat, Maharashtra", description: "Participate in Go-Green drive by planting saplings.", date: "2025-07-25", image: PlantTree01, link: "/opportunity/planttrees" },
+
   ];
 
   return (

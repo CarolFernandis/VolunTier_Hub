@@ -32,7 +32,6 @@ import CareAssistance from "./pages/Opportunity/CareAssistance";
 import Medical from "./pages/Opportunity/Medical";
 import FoodDonation from "./pages/Opportunity/FoodDonation";
 import DonationCamp from "./pages/Opportunity/DonationCamp";
-import PlantDay from "./pages/Opportunity/PlantDay";
 import SeniorCitizens from "./pages/Opportunity/SeniorCitizens";
 import RuralSchools from "./pages/Opportunity/RuralSchools";
 import FarmWork from "./pages/Opportunity/FarmWork";
@@ -41,6 +40,8 @@ import AnimalShelter from "./pages/Opportunity/AnimalShelter";
 import CleanCamp from "./pages/Opportunity/CleanCamp";
 import DogShelter from "./pages/Opportunity/DogShelter";
 import ForestClean from "./pages/Opportunity/ForestClean";
+import PlantTrees from "./pages/Opportunity/PlantTrees";
+
 
 
 
@@ -84,7 +85,6 @@ const App = () => {
              <Route path="/opportunity/medical" element={<Medical />} />
              <Route path="/opportunity/fooddonation" element={<FoodDonation />} />
              <Route path="/opportunity/donationcamp" element={<DonationCamp />} />
-             <Route path="/opportunity/plantday" element={<PlantDay />} />
              <Route path="/opportunity/seniorcitizens" element={<SeniorCitizens />} />
              <Route path="/opportunity/ruralschools" element={<RuralSchools />} />
              <Route path="/opportunity/farmwork" element={<FarmWork />} />
@@ -93,6 +93,8 @@ const App = () => {
              <Route path="/opportunity/cleancamp" element={<CleanCamp />} />
              <Route path="/opportunity/dogshelter" element={<DogShelter />} />
              <Route path="/opportunity/forestclean" element={<ForestClean />} />
+             <Route path="/opportunity/planttrees" element={<PlantTrees />} />
+
 
 
             {/* Dashboard Pages */}

@@ -1,19 +1,23 @@
-// src/pages/CleanUp.jsx
-import React from "react";
-import "./FoodDonation.css"; // Separate CSS file
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./FoodDonation.css";
 
 // --- Gallery Images ---
 const galleryImages = [
-  "https://i.pinimg.com/736x/e6/a6/12/e6a612a2df7a3e590a9cbc8b5e2a985e.jpg",
-  "https://i.pinimg.com/736x/f0/59/a7/f059a74c5e28f39e429b8fcb5f77960b.jpg",
-  "https://i.pinimg.com/1200x/fe/d3/d2/fed3d2bd1f6b99aa2af1c0259da4971e.jpg",
-  "https://i.pinimg.com/1200x/3c/10/5b/3c105bd35e1102a4d5633692b45bd548.jpg",
+  "https://i.pinimg.com/1200x/bd/11/2f/bd112f1cf58d3a9b69d753825b59322e.jpg",
+  "https://i.pinimg.com/1200x/75/61/76/756176f084852845710b7d093d45abe4.jpg",
+  "https://i.pinimg.com/1200x/b4/9b/06/b49b064a6419629b825cf499553a67a4.jpg",
+  "https://i.pinimg.com/1200x/c6/0d/94/c60d94adbd71de1f93b69992d4c3fff3.jpg",
+  "https://i.pinimg.com/736x/e0/45/73/e0457372e3a945685feb72a17b9f0792.jpg",
+  "https://i.pinimg.com/736x/01/cb/59/01cb594e81b8f206112381272dece68b.jpg",
+  "https://i.pinimg.com/736x/2f/1b/09/2f1b093f3af921bc3c41e8003017f76d.jpg",
+  "https://i.pinimg.com/1200x/ab/31/b3/ab31b372a3acde6db55c7195d1aa1b89.jpg",
 ];
 
 // --- Experience Data ---
 const experienceData = {
   host: {
-    name: "SAHIL",
+    name: "Vishal",
     verified: true,
     description:
       "Offering a garden and mountain view, our stay is located in Nagar, 25 km from Hidimba Devi Temple and 22 km from Tibetan Monastery.",
@@ -21,15 +25,15 @@ const experienceData = {
       "https://i.pinimg.com/1200x/6a/d1/57/6ad157c8278e090a7151341adc8eaaa6.jpg",
   },
   details: {
-    locationName: "Hostel in Moshi, Pune",
-    title: "Volunteer in Food Donation Camp",
+    locationName: "Hostel in Moshi",
+    title: "Volunteer in Food Distribution",
     header: "About This Experience",
     intro:
-      "Ready to be part of the solution? Will you join our team to help with our impactful community food donation drive this season in Moshi, Pune?",
+      "When children in Moshi go to bed with empty stomachs, is it right for us to live with the comfort of our full pantry, knowing we have the power to share? If a single morning of your effort can turn a day of hunger into a day of hope, can your heart truly afford to stay away?",
     tasks: ["Content creation", "Digital marketing"],
     offer: [
       "Free accommodation and meals",
-      "A chance to experience the breathtaking beauty of Moshi, Pune",
+      "A chance to experience the community service",
       "A friendly and collaborative environment",
     ],
   },
@@ -53,50 +57,78 @@ const experienceData = {
     totalVolunteersNeeded: 4,
   },
   locationDetails:
-    "Are you passionate about travel, hospitality, and music? We are dedicated to providing serene and rejuvenating getaways, and are looking for volunteers to join our team.",
+    "Are you passionate about dogs, animal welfare, and community service? We are dedicated to providing a safe, loving, and nurturing environment for dogs awaiting their forever homes, and are looking for volunteers to join our team.",
 };
 
 // --- Badge Component ---
-const Badge = ({ children, type = "primary", icon }) => {
-  return (
-    <span className={`badge ${type}`}>
-      {icon && <i className={`bi bi-${icon} me-1`}></i>}
-      {children}
-    </span>
-  );
-};
+const Badge = ({ children, icon }) => (
+  <span className="fd-badge">
+    {icon && <i className={`bi bi-${icon} me-1`}></i>}
+    {children}
+  </span>
+);
 
 // --- Quick Peek Item ---
 const QuickPeekItem = ({ icon, text }) => (
-  <div className="quick-peek-item">
+  <div className="fd-quick-item">
     <i className={`bi bi-${icon}`}></i>
     <span>{text}</span>
   </div>
 );
 
-// --- Image Gallery ---
+// --- Image Gallery with "+X More" ---
 const ImageGallery = ({ images }) => {
-  if (!images || images.length === 0) return null;
-  const mainImage = images[0];
-  const smallImages = images.slice(1, 4);
-  const remainingCount = images.length - 4;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const maxSmallImages = 3;
+  const smallImages = images.slice(1, 1 + maxSmallImages);
+  const remainingCount = images.length - 1 - maxSmallImages;
+
+  const openModal = (index) => {
+    setCurrentIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+  const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className="gallery-container">
-      <div className="main-image">
-        <img src={mainImage} alt="Main view" />
+    <>
+      <div className="fd-gallery-container">
+        <div className="fd-main-image" onClick={() => openModal(0)}>
+          <img src={images[0]} alt="Main view" />
+        </div>
+        <div className="fd-small-images">
+          {smallImages.map((img, idx) => (
+            <div className="fd-small-wrapper" key={idx} onClick={() => openModal(idx + 1)}>
+              <img src={img} alt={`Detail ${idx + 1}`} />
+            </div>
+          ))}
+          {remainingCount > 0 && (
+            <div
+              className="fd-small-wrapper fd-overlay-wrapper"
+              onClick={() => openModal(maxSmallImages + 1)}
+            >
+              <img src={images[maxSmallImages + 1]} alt="More images" />
+              <div className="fd-overlay">+{remainingCount} more</div>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="small-images">
-        {smallImages.map((img, idx) => (
-          <div className="small-img-wrapper" key={idx}>
-            <img src={img} alt={`Hostel detail ${idx + 1}`} />
-            {idx === smallImages.length - 1 && remainingCount > 0 && (
-              <div className="overlay">+{remainingCount} more</div>
-            )}
+
+      {isModalOpen && (
+        <div className="fd-modal-overlay" onClick={closeModal}>
+          <div className="fd-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="fd-close-btn" onClick={closeModal}>&times;</button>
+            <button className="fd-prev-btn" onClick={prevImage}>&#10094;</button>
+            <img src={images[currentIndex]} alt="Zoomed" />
+            <button className="fd-next-btn" onClick={nextImage}>&#10095;</button>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -104,71 +136,76 @@ const ImageGallery = ({ images }) => {
 export default function FoodDonation() {
   const { host, details, work, inclusions, quickPeek, requirements, locationDetails } = experienceData;
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+  const handleApplyClick = () => {
+    if (!isLoggedIn) {
+      setShowLoginPrompt(true);
+    } else {
+      window.location.href = "/apply";
+    }
+  };
+
   return (
-    <div className="clean-up-container">
-      {/* Top Breadcrumb & Title */}
-      <div className="breadcrumb">
-        <a href="#">Opportunity</a> / <a href="#">Moshi</a> / Pune 
+    <div className="fd-container">
+      <h1 className="fd-page-heading">Volunteer Opportunities at Moshi, Pune</h1>
+
+      <div className="fd-breadcrumb">
+        <a href="#">Opportunity</a> / <a href="#">Moshi</a> / Pune
       </div>
       <h1>{details.title}</h1>
-      <span className="location">{details.locationName}</span>
+      <span className="fd-location">{details.locationName}</span>
 
-      {/* Image Gallery */}
       <ImageGallery images={galleryImages} />
 
-      {/* Main Content */}
-      <div className="main-content">
-        {/* Left Column */}
-        <div className="left-column">
-          {/* About Experience */}
-          <section className="experience-section">
+      <div className="fd-main-content">
+        <div className="fd-left-column">
+          {/* Experience Section */}
+          <section className="fd-experience-section">
             <h2>{details.header}</h2>
             <p>{details.intro}</p>
-            <div className="tasks">
+            <div className="fd-tasks">
               {details.tasks.map((task, idx) => (
-                <Badge key={idx} type="primary" icon="check-circle">
-                  {task}
-                </Badge>
+                <Badge key={idx} icon="check-circle">{task}</Badge>
               ))}
             </div>
             <h3>What You Get:</h3>
-            <ul>
+            <div className="fd-offers">
               {details.offer.map((item, idx) => (
-                <li key={idx}>
+                <div className="fd-offer-item" key={idx}>
                   <i className="bi bi-star-fill"></i> {item}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
-          {/* Work & Qualities */}
-          <section className="experience-section light-bg">
-            <h2>Commitment and Skills</h2>
-            <div className="workload">
-              <Badge type="accent" icon="clock-history">{work.hoursPerWeek}</Badge>
+          {/* Commitment Section */}
+          <section className="fd-experience-section fd-light-bg">
+            <h2>Commitment & Skills</h2>
+            <div className="fd-workload">
+              <Badge icon="clock-history">{work.hoursPerWeek}</Badge>
               {work.roles.map((role, idx) => (
-                <Badge key={idx} type="accent" icon="code-slash">{role}</Badge>
+                <Badge key={idx} icon="code-slash">{role}</Badge>
               ))}
-              <Badge type="primary" icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
+              <Badge icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
             </div>
-            <div className="qualities">
-              {work.qualities.map((quality, idx) => (
-                <Badge key={idx} type="primary">{quality}</Badge>
-              ))}
+            <div className="fd-qualities">
+              {work.qualities.map((q, idx) => <Badge key={idx}>{q}</Badge>)}
             </div>
           </section>
 
-          {/* Inclusions & Location */}
-          <section className="experience-section">
+          {/* Inclusions Section */}
+          <section className="fd-experience-section">
             <h2>Inclusions & Location</h2>
-            <div className="inclusions">
+            <div className="fd-inclusions">
               <div>
                 <h4>Stay & Food</h4>
-                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
               <div>
                 <h4>Amenities</h4>
-                {inclusions.amenities.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.amenities.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
             </div>
             <h4>About the Location</h4>
@@ -176,19 +213,18 @@ export default function FoodDonation() {
           </section>
         </div>
 
-        {/* Right Column */}
-        <div className="right-column">
+        <div className="fd-right-column">
           {/* Host Card */}
-          <div className="host-card">
+          <div className="fd-host-card">
             <h2>Meet Your Host</h2>
             <img src={host.hostImageUrl} alt={host.name} />
             <h3>{host.name}</h3>
-            {host.verified && <span className="verified">Verified Host</span>}
+            {host.verified && <span className="fd-verified">Verified Host</span>}
             <p>{host.description}</p>
           </div>
 
-          {/* Quick Peek Card */}
-          <div className="quick-peek-card">
+          {/* Quick Peek */}
+          <div className="fd-quick-peek-card">
             <h2>Quick Peek</h2>
             <QuickPeekItem icon="house-door" text={quickPeek.type} />
             <QuickPeekItem icon="people" text={quickPeek.volunteersRequired} />
@@ -197,16 +233,27 @@ export default function FoodDonation() {
         </div>
       </div>
 
-       {/* Sticky Footer Above Content */}
-      <div className="sticky-footer mt-4">
+      {/* Sticky Footer */}
+      <div className="fd-sticky-footer mt-4">
         <p>
           <span>{requirements.minimumStay}</span> Min. Stay | <span>{requirements.totalVolunteersNeeded}</span> Volunteers Needed
         </p>
-        <button className="apply-btn">
+        <button className="fd-apply-btn" onClick={handleApplyClick}>
           <i className="bi bi-send me-2"></i> APPLY NOW
         </button>
       </div>
-  
+
+      {/* Login Modal */}
+      {showLoginPrompt && (
+        <div className="fd-login-overlay">
+          <div className="fd-login-content advanced">
+            <button className="fd-close-btn" onClick={() => setShowLoginPrompt(false)}>&times;</button>
+            <h3>Almost There!</h3>
+            <p>We noticed you're not logged in yet. Please login as a volunteer to apply for this opportunity.</p>
+            <Link to="/login" className="fd-login-btn">Login as Volunteer</Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

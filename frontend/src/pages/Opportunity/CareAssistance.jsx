@@ -1,35 +1,39 @@
-// src/pages/CleanUp.jsx
-import React from "react";
-import "./CareAssistance.css"; // Separate CSS file
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./CareAssistance.css";
 
 // --- Gallery Images ---
 const galleryImages = [
-  "https://i.pinimg.com/1200x/fd/5d/ed/fd5ded65a5e67bb3fdd0be7faa8954b0.jpg",
-  "https://i.pinimg.com/1200x/23/a1/31/23a13123d2c9e35e721f8f79a8a43b73.jpg",
-  "https://i.pinimg.com/1200x/69/2f/ae/692fae5ea13ec320ac3cc5b0207d47c0.jpg",
-  "https://i.pinimg.com/736x/d4/65/8f/d4658f51c25e5ccf8296d3b36e75acda.jpg",
+  "https://i.pinimg.com/1200x/ca/fa/d7/cafad7a2ded9d89e0cbc12589d6be735.jpg",
+  "https://i.pinimg.com/1200x/f9/2f/4a/f92f4a9537920c4eb61e5af7e7241c66.jpg",
+  "https://i.pinimg.com/736x/df/18/85/df1885df797ba9850e26ab9e0cc3a959.jpg",
+  "https://i.pinimg.com/1200x/53/86/ff/5386ff34e96b40b9c391118851f69f58.jpg",
+  "https://i.pinimg.com/1200x/1c/13/b3/1c13b39250cf0e95539de7a757c31b4e.jpg",
+  "https://i.pinimg.com/736x/31/80/ee/3180ee4c70fca08273e8b30c9c450159.jpg",
+  "https://i.pinimg.com/736x/ef/83/06/ef8306b1c6c9fbd08897d5438deceee6.jpg",
+  "https://i.pinimg.com/1200x/3a/90/d3/3a90d30559941683cc55b5e2e3001077.jpg",
 ];
 
 // --- Experience Data ---
 const experienceData = {
   host: {
-    name: "Vishal",
+    name: "Mohini",
     verified: true,
     description:
       "Offering a garden and mountain view, our stay is located in Nagar, 25 km from Hidimba Devi Temple and 22 km from Tibetan Monastery.",
     hostImageUrl:
-      "https://i.pinimg.com/1200x/6a/d1/57/6ad157c8278e090a7151341adc8eaaa6.jpg",
+      "https://i.pinimg.com/736x/47/38/6c/47386cc6981f75d199cf3ab716def9b7.jpg",
   },
   details: {
-    locationName: "Hostel in Manali, Himachal Pradesh",
-    title: "Volunteer in Kulu",
+    locationName: "Hostel in Panvelr",
+    title: "Volunteer in Care Assistance",
     header: "About This Experience",
     intro:
-      "Are you passionate about nature, hospitality, and creating memorable experiences? Join us as a volunteer at our beautiful property in the serene landscapes of Himachal Pradesh.",
+      "When a lifetime of memories fades and simple tasks become monuments, who will be the steady hand that offers a cup of tea, or the listening ear for a story untold? If a few hours of your time can exchange isolation for a gentle companionship, can you truly afford not to give it?",
     tasks: ["Content creation", "Digital marketing"],
     offer: [
       "Free accommodation and meals",
-      "A chance to experience the breathtaking beauty of Himachal",
+      "A chance to experience the community service",
       "A friendly and collaborative environment",
     ],
   },
@@ -53,50 +57,84 @@ const experienceData = {
     totalVolunteersNeeded: 4,
   },
   locationDetails:
-    "Are you passionate about travel, hospitality, and music? We are dedicated to providing serene and rejuvenating getaways, and are looking for volunteers to join our team.",
+    "Are you passionate about dogs, animal welfare, and community service? We are dedicated to providing a safe, loving, and nurturing environment for dogs awaiting their forever homes, and are looking for volunteers to join our team.",
 };
 
 // --- Badge Component ---
-const Badge = ({ children, type = "primary", icon }) => {
-  return (
-    <span className={`badge ${type}`}>
-      {icon && <i className={`bi bi-${icon} me-1`}></i>}
-      {children}
-    </span>
-  );
-};
+const Badge = ({ children, icon }) => (
+  <span className="ca-badge">
+    {icon && <i className={`bi bi-${icon} me-1`}></i>}
+    {children}
+  </span>
+);
 
 // --- Quick Peek Item ---
 const QuickPeekItem = ({ icon, text }) => (
-  <div className="quick-peek-item">
+  <div className="ca-quick-item">
     <i className={`bi bi-${icon}`}></i>
     <span>{text}</span>
   </div>
 );
 
-// --- Image Gallery ---
+// --- Image Gallery with "+X More" ---
 const ImageGallery = ({ images }) => {
-  if (!images || images.length === 0) return null;
-  const mainImage = images[0];
-  const smallImages = images.slice(1, 4);
-  const remainingCount = images.length - 4;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const maxSmallImages = 3;
+  const smallImages = images.slice(1, 1 + maxSmallImages);
+  const remainingCount = images.length - 1 - maxSmallImages;
+
+  const openModal = (index) => {
+    setCurrentIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+  const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    <div className="gallery-container">
-      <div className="main-image">
-        <img src={mainImage} alt="Main view" />
+    <>
+      <div className="ca-gallery-container">
+        <div className="ca-main-image" onClick={() => openModal(0)}>
+          <img src={images[0]} alt="Main view" />
+        </div>
+        <div className="ca-small-images">
+          {smallImages.map((img, idx) => (
+            <div className="ca-small-wrapper" key={idx} onClick={() => openModal(idx + 1)}>
+              <img src={img} alt={`Detail ${idx + 1}`} />
+            </div>
+          ))}
+          {remainingCount > 0 && (
+            <div
+              className="ca-small-wrapper ca-overlay-wrapper"
+              onClick={() => openModal(maxSmallImages + 1)}
+            >
+              <img src={images[maxSmallImages + 1]} alt="More images" />
+              <div className="ca-overlay">+{remainingCount} more</div>
+            </div>
+          )}
+        </div>
       </div>
-      <div className="small-images">
-        {smallImages.map((img, idx) => (
-          <div className="small-img-wrapper" key={idx}>
-            <img src={img} alt={`Hostel detail ${idx + 1}`} />
-            {idx === smallImages.length - 1 && remainingCount > 0 && (
-              <div className="overlay">+{remainingCount} more</div>
-            )}
+
+      {isModalOpen && (
+        <div className="ca-modal-overlay" onClick={closeModal}>
+          <div className="ca-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="ca-close-btn" onClick={closeModal}>
+              &times;
+            </button>
+            <button className="ca-prev-btn" onClick={prevImage}>
+              &#10094;
+            </button>
+            <img src={images[currentIndex]} alt="Zoomed" />
+            <button className="ca-next-btn" onClick={nextImage}>
+              &#10095;
+            </button>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -104,71 +142,73 @@ const ImageGallery = ({ images }) => {
 export default function CareAssistance() {
   const { host, details, work, inclusions, quickPeek, requirements, locationDetails } = experienceData;
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
+  const handleApplyClick = () => {
+    if (!isLoggedIn) {
+      setShowLoginPrompt(true);
+    } else {
+      window.location.href = "/apply";
+    }
+  };
+
   return (
-    <div className="clean-up-container">
-      {/* Top Breadcrumb & Title */}
-      <div className="breadcrumb">
-        <a href="#">Opportunity</a> / <a href="#">Himachal Pradesh</a> / Manali
+    <div className="ca-container">
+      <h1 className="ca-page-heading">Volunteer Opportunities at Panvel, Navi Mumbai</h1>
+
+      <div className="ca-breadcrumb">
+        <a href="#">Opportunity</a> / <a href="#">Panvel</a> / Navi Mumbai
       </div>
       <h1>{details.title}</h1>
-      <span className="location">{details.locationName}</span>
+      <span className="ca-location">{details.locationName}</span>
 
-      {/* Image Gallery */}
       <ImageGallery images={galleryImages} />
 
-      {/* Main Content */}
-      <div className="main-content">
-        {/* Left Column */}
-        <div className="left-column">
-          {/* About Experience */}
-          <section className="experience-section">
+      <div className="ca-main-content">
+        <div className="ca-left-column">
+          <section className="ca-experience-section">
             <h2>{details.header}</h2>
             <p>{details.intro}</p>
-            <div className="tasks">
+            <div className="ca-tasks">
               {details.tasks.map((task, idx) => (
-                <Badge key={idx} type="primary" icon="check-circle">
-                  {task}
-                </Badge>
+                <Badge key={idx} icon="check-circle">{task}</Badge>
               ))}
             </div>
             <h3>What You Get:</h3>
-            <ul>
+            <div className="ca-offers">
               {details.offer.map((item, idx) => (
-                <li key={idx}>
+                <div className="ca-offer-item" key={idx}>
                   <i className="bi bi-star-fill"></i> {item}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </section>
 
-          {/* Work & Qualities */}
-          <section className="experience-section light-bg">
-            <h2>Commitment and Skills</h2>
-            <div className="workload">
-              <Badge type="accent" icon="clock-history">{work.hoursPerWeek}</Badge>
+          <section className="ca-experience-section ca-light-bg">
+            <h2>Commitment & Skills</h2>
+            <div className="ca-workload">
+              <Badge icon="clock-history">{work.hoursPerWeek}</Badge>
               {work.roles.map((role, idx) => (
-                <Badge key={idx} type="accent" icon="code-slash">{role}</Badge>
+                <Badge key={idx} icon="code-slash">{role}</Badge>
               ))}
-              <Badge type="primary" icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
+              <Badge icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
             </div>
-            <div className="qualities">
-              {work.qualities.map((quality, idx) => (
-                <Badge key={idx} type="primary">{quality}</Badge>
-              ))}
+            <div className="ca-qualities">
+              {work.qualities.map((q, idx) => <Badge key={idx}>{q}</Badge>)}
             </div>
           </section>
 
-          {/* Inclusions & Location */}
-          <section className="experience-section">
+          <section className="ca-experience-section">
             <h2>Inclusions & Location</h2>
-            <div className="inclusions">
+            <div className="ca-inclusions">
               <div>
                 <h4>Stay & Food</h4>
-                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.stayAndFood.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
               <div>
                 <h4>Amenities</h4>
-                {inclusions.amenities.map((item, idx) => <Badge key={idx} type="accent">{item}</Badge>)}
+                {inclusions.amenities.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
               </div>
             </div>
             <h4>About the Location</h4>
@@ -176,19 +216,16 @@ export default function CareAssistance() {
           </section>
         </div>
 
-        {/* Right Column */}
-        <div className="right-column">
-          {/* Host Card */}
-          <div className="host-card">
+        <div className="ca-right-column">
+          <div className="ca-host-card">
             <h2>Meet Your Host</h2>
             <img src={host.hostImageUrl} alt={host.name} />
             <h3>{host.name}</h3>
-            {host.verified && <span className="verified">Verified Host</span>}
+            {host.verified && <span className="ca-verified">Verified Host</span>}
             <p>{host.description}</p>
           </div>
 
-          {/* Quick Peek Card */}
-          <div className="quick-peek-card">
+          <div className="ca-quick-peek-card">
             <h2>Quick Peek</h2>
             <QuickPeekItem icon="house-door" text={quickPeek.type} />
             <QuickPeekItem icon="people" text={quickPeek.volunteersRequired} />
@@ -197,16 +234,25 @@ export default function CareAssistance() {
         </div>
       </div>
 
-       {/* Sticky Footer Above Content */}
-      <div className="sticky-footer mt-4">
+      <div className="ca-sticky-footer mt-4">
         <p>
           <span>{requirements.minimumStay}</span> Min. Stay | <span>{requirements.totalVolunteersNeeded}</span> Volunteers Needed
         </p>
-        <button className="apply-btn">
+        <button className="ca-apply-btn" onClick={handleApplyClick}>
           <i className="bi bi-send me-2"></i> APPLY NOW
         </button>
       </div>
-  
+
+      {showLoginPrompt && (
+        <div className="ca-login-overlay">
+          <div className="ca-login-content advanced">
+            <button className="ca-close-btn" onClick={() => setShowLoginPrompt(false)}>&times;</button>
+            <h3>Almost There!</h3>
+            <p>We noticed you're not logged in yet. Please login as a volunteer to apply for this opportunity.</p>
+            <Link to="/login" className="ca-login-btn">Login as Volunteer</Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

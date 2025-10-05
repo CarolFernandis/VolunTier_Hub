@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./ForestClean.css";
+import "./PlantTrees.css";
 
 // --- Gallery Images ---
 const galleryImages = [
-  "https://i.pinimg.com/736x/3f/c4/04/3fc40470dfa67cee642a738313a61652.jpg",
-  "https://i.pinimg.com/736x/b4/2e/ba/b42eba7b79d79cc6e4722f71fdc6f0a7.jpg",
-  "https://i.pinimg.com/1200x/df/d5/ed/dfd5edfc8651e69706ee85c12453f30e.jpg",
-  "https://i.pinimg.com/1200x/d7/a4/92/d7a492ff97b7d4a8c77cc140fd7bf961.jpg",
-  "https://i.pinimg.com/1200x/c8/c2/1a/c8c21a3413dd296c89e857f5409f06d5.jpg",
-  "https://i.pinimg.com/736x/f7/27/f2/f727f2b193b51be41a40dcbc3c5a97e8.jpg",
-  "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  "https://images.unsplash.com/photo-1542202229-7d93c33f5d07?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "https://i.pinimg.com/1200x/bd/11/2f/bd112f1cf58d3a9b69d753825b59322e.jpg",
+  "https://i.pinimg.com/1200x/75/61/76/756176f084852845710b7d093d45abe4.jpg",
+  "https://i.pinimg.com/1200x/b4/9b/06/b49b064a6419629b825cf499553a67a4.jpg",
+  "https://i.pinimg.com/1200x/c6/0d/94/c60d94adbd71de1f93b69992d4c3fff3.jpg",
+  "https://i.pinimg.com/736x/e0/45/73/e0457372e3a945685feb72a17b9f0792.jpg",
+  "https://i.pinimg.com/736x/01/cb/59/01cb594e81b8f206112381272dece68b.jpg",
+  "https://i.pinimg.com/736x/2f/1b/09/2f1b093f3af921bc3c41e8003017f76d.jpg",
+  "https://i.pinimg.com/1200x/ab/31/b3/ab31b372a3acde6db55c7195d1aa1b89.jpg",
 ];
 
 // --- Experience Data ---
@@ -25,11 +25,11 @@ const experienceData = {
       "https://i.pinimg.com/1200x/6a/d1/57/6ad157c8278e090a7151341adc8eaaa6.jpg",
   },
   details: {
-    locationName: "Hostel in chiplun, Kokan",
-    title: "Volunteer in Forest Cleaning ",
+    locationName: "Hostel in Gujarat",
+    title: "Volunteer in Tree Plantation",
     header: "About This Experience",
     intro:
-      "In a place of such breathtaking natural beauty as Mahabaleshwar, isn't it true that the most profound experience is not just observing the scenery, but offering your hands and heart to the voiceless dogs who need help at the local animal shelter?",
+      "As temperatures rise and the land cries out for shelter from the sun, can we afford to stand by and simply watch the changing climate when the solution—a tiny sapling and a few moments of our labor—is literally in our hands? Join us; let's weave a life-giving canopy of green across the farmlands and communities of Gujarat and Maharashtra for generations to come.",
     tasks: ["Content creation", "Digital marketing"],
     offer: [
       "Free accommodation and meals",
@@ -62,7 +62,7 @@ const experienceData = {
 
 // --- Badge Component ---
 const Badge = ({ children, icon }) => (
-  <span className="frc-badge">
+  <span className="pt-badge">
     {icon && <i className={`bi bi-${icon} me-1`}></i>}
     {children}
   </span>
@@ -70,7 +70,7 @@ const Badge = ({ children, icon }) => (
 
 // --- Quick Peek Item ---
 const QuickPeekItem = ({ icon, text }) => (
-  <div className="frc-quick-item">
+  <div className="pt-quick-item">
     <i className={`bi bi-${icon}`}></i>
     <span>{text}</span>
   </div>
@@ -96,35 +96,35 @@ const ImageGallery = ({ images }) => {
 
   return (
     <>
-      <div className="frc-gallery-container">
-        <div className="frc-main-image" onClick={() => openModal(0)}>
+      <div className="pt-gallery-container">
+        <div className="pt-main-image" onClick={() => openModal(0)}>
           <img src={images[0]} alt="Main view" />
         </div>
-        <div className="frc-small-images">
+        <div className="pt-small-images">
           {smallImages.map((img, idx) => (
-            <div className="frc-small-wrapper" key={idx} onClick={() => openModal(idx + 1)}>
+            <div className="pt-small-wrapper" key={idx} onClick={() => openModal(idx + 1)}>
               <img src={img} alt={`Detail ${idx + 1}`} />
             </div>
           ))}
           {remainingCount > 0 && (
             <div
-              className="frc-small-wrapper frc-overlay-wrapper"
+              className="pt-small-wrapper pt-overlay-wrapper"
               onClick={() => openModal(maxSmallImages + 1)}
             >
               <img src={images[maxSmallImages + 1]} alt="More images" />
-              <div className="frc-overlay">+{remainingCount} more</div>
+              <div className="pt-overlay">+{remainingCount} more</div>
             </div>
           )}
         </div>
       </div>
 
       {isModalOpen && (
-        <div className="frc-modal-overlay" onClick={closeModal}>
-          <div className="frc-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="frc-close-btn" onClick={closeModal}>&times;</button>
-            <button className="frc-prev-btn" onClick={prevImage}>&#10094;</button>
+        <div className="pt-modal-overlay" onClick={closeModal}>
+          <div className="pt-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="pt-close-btn" onClick={closeModal}>&times;</button>
+            <button className="pt-prev-btn" onClick={prevImage}>&#10094;</button>
             <img src={images[currentIndex]} alt="Zoomed" />
-            <button className="frc-next-btn" onClick={nextImage}>&#10095;</button>
+            <button className="pt-next-btn" onClick={nextImage}>&#10095;</button>
           </div>
         </div>
       )}
@@ -133,7 +133,7 @@ const ImageGallery = ({ images }) => {
 };
 
 // --- Main Component ---
-export default function ForestClean() {
+export default function PlantTrees() {
   const { host, details, work, inclusions, quickPeek, requirements, locationDetails } = experienceData;
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -148,57 +148,54 @@ export default function ForestClean() {
   };
 
   return (
-    <div className="frc-container">
-      <h1 className="frc-page-heading">Volunteer Opportunities at Kokan</h1>
+    <div className="pt-container">
+      <h1 className="pt-page-heading">Volunteer Opportunities at Gujarat</h1>
 
-      <div className="frc-breadcrumb">
-        <a href="#">Opportunity</a> / <a href="#">Chiplun</a> / Kokan
+      <div className="pt-breadcrumb">
+        <a href="#">Opportunity</a> / <a href="#">Gujarat</a> / Maharashtra
       </div>
       <h1>{details.title}</h1>
-      <span className="frc-location">{details.locationName}</span>
+      <span className="pt-location">{details.locationName}</span>
 
       <ImageGallery images={galleryImages} />
 
-      <div className="frc-main-content">
-        <div className="frc-left-column">
-          {/* Experience Section */}
-          <section className="frc-experience-section">
+      <div className="pt-main-content">
+        <div className="pt-left-column">
+          <section className="pt-experience-section">
             <h2>{details.header}</h2>
             <p>{details.intro}</p>
-            <div className="frc-tasks">
+            <div className="pt-tasks">
               {details.tasks.map((task, idx) => (
                 <Badge key={idx} icon="check-circle">{task}</Badge>
               ))}
             </div>
             <h3>What You Get:</h3>
-            <div className="frc-offers">
+            <div className="pt-offers">
               {details.offer.map((item, idx) => (
-                <div className="frc-offer-item" key={idx}>
+                <div className="pt-offer-item" key={idx}>
                   <i className="bi bi-star-fill"></i> {item}
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Commitment Section */}
-          <section className="frc-experience-section frc-light-bg">
+          <section className="pt-experience-section pt-light-bg">
             <h2>Commitment & Skills</h2>
-            <div className="frc-workload">
+            <div className="pt-workload">
               <Badge icon="clock-history">{work.hoursPerWeek}</Badge>
               {work.roles.map((role, idx) => (
                 <Badge key={idx} icon="code-slash">{role}</Badge>
               ))}
               <Badge icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
             </div>
-            <div className="frc-qualities">
+            <div className="pt-qualities">
               {work.qualities.map((q, idx) => <Badge key={idx}>{q}</Badge>)}
             </div>
           </section>
 
-          {/* Inclusions Section */}
-          <section className="frc-experience-section">
+          <section className="pt-experience-section">
             <h2>Inclusions & Location</h2>
-            <div className="frc-inclusions">
+            <div className="pt-inclusions">
               <div>
                 <h4>Stay & Food</h4>
                 {inclusions.stayAndFood.map((item, idx) => <Badge key={idx}>{item}</Badge>)}
@@ -213,18 +210,16 @@ export default function ForestClean() {
           </section>
         </div>
 
-        <div className="frc-right-column">
-          {/* Host Card */}
-          <div className="frc-host-card">
+        <div className="pt-right-column">
+          <div className="pt-host-card">
             <h2>Meet Your Host</h2>
             <img src={host.hostImageUrl} alt={host.name} />
             <h3>{host.name}</h3>
-            {host.verified && <span className="frc-verified">Verified Host</span>}
+            {host.verified && <span className="pt-verified">Verified Host</span>}
             <p>{host.description}</p>
           </div>
 
-          {/* Quick Peek */}
-          <div className="frc-quick-peek-card">
+          <div className="pt-quick-peek-card">
             <h2>Quick Peek</h2>
             <QuickPeekItem icon="house-door" text={quickPeek.type} />
             <QuickPeekItem icon="people" text={quickPeek.volunteersRequired} />
@@ -233,24 +228,22 @@ export default function ForestClean() {
         </div>
       </div>
 
-      {/* Sticky Footer */}
-      <div className="frc-sticky-footer mt-4">
+      <div className="pt-sticky-footer mt-4">
         <p>
           <span>{requirements.minimumStay}</span> Min. Stay | <span>{requirements.totalVolunteersNeeded}</span> Volunteers Needed
         </p>
-        <button className="frc-apply-btn" onClick={handleApplyClick}>
+        <button className="pt-apply-btn" onClick={handleApplyClick}>
           <i className="bi bi-send me-2"></i> APPLY NOW
         </button>
       </div>
 
-      {/* Login Modal */}
       {showLoginPrompt && (
-        <div className="frc-login-overlay">
-          <div className="frc-login-content advanced">
-            <button className="frc-close-btn" onClick={() => setShowLoginPrompt(false)}>&times;</button>
+        <div className="pt-login-overlay">
+          <div className="pt-login-content advanced">
+            <button className="pt-close-btn" onClick={() => setShowLoginPrompt(false)}>&times;</button>
             <h3>Almost There!</h3>
             <p>We noticed you're not logged in yet. Please login as a volunteer to apply for this opportunity.</p>
-            <Link to="/login" className="frc-login-btn">Login as Volunteer</Link>
+            <Link to="/login" className="pt-login-btn">Login as Volunteer</Link>
           </div>
         </div>
       )}
