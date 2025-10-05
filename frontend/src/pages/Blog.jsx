@@ -13,7 +13,7 @@ import "./Blog.css"; // css link
 
 export default function Blog() {
   const blogData = [
-    { title: "How Volunteering Changed My Life", image: blog1, link: "/blog/volunteering" },
+    { title: "How Volunteering Changed my Life", image: blog1, link: "/blog/volunteering" },
     { title: "The Struggle to Find the Right Volunteering Opportunity", image: blog2, link: "/blog/outreach" },
     { title: "The Emotional Rewards of Giving Time", image: blog3, link: "/blog/time" },
     { title: "Learning Skills Through Volunteering", image: blog4, link: "/blog/learning" },
