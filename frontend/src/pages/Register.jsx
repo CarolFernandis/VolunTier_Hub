@@ -1,13 +1,32 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase";
+import { toast } from 'react-toastify';
 import "./Register.css";
 
 export default function Register() {
   const [role, setRole] = useState('volunteer');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ name: e.target.name.value, email: e.target.email.value, password: e.target.password.value, role });
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    if (!name || !email || !password) {
+      toast.error('Please fill in all fields.');
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      toast.success(`Registered as ${role.charAt(0).toUpperCase() + role.slice(1)}!`);
+      navigate('/login');
+    } catch (error) {
+      toast.error('Registration failed: ' + error.message);
+    }
   };
   return (
     <div className="register-container">

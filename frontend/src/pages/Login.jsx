@@ -1,13 +1,35 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase";
+import { toast } from 'react-toastify';
 import "./Login.css";
 
 export default function Login() {
   const [role, setRole] = useState('volunteer');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ email: e.target.email.value, password: e.target.password.value, role });
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    if (!email || !password) {
+      toast.error('Please enter both email and password.');
+      return;
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      if (userCredential.user) {
+        toast.success('Successful Login!');
+        navigate('/login-success', { state: { role } });
+      } else {
+        toast.error('Login failed: No user found.');
+      }
+    } catch (error) {
+      toast.error('Login failed: ' + error.message);
+    }
   };
 
   return (
