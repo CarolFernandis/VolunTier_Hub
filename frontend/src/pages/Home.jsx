@@ -72,7 +72,7 @@ export default function Home() {
       {
         question: "When should I apply?",
         answer:
-          "You can apply anytime, but applying earlier ensures better placement and preparation.",
+          "You can apply anytime, but applying earlier ensures better placement and preparations.",
       },
       {
         question: "What benefits does it provide to volunteers?",
