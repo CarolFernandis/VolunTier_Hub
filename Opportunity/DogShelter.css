@@ -1,0 +1,359 @@
+/* ====== Container ====== */
+.ds-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ====== Page Heading ====== */
+.ds-page-heading {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  color: #080d0c !important;
+}
+
+/* ====== Breadcrumb ====== */
+.ds-breadcrumb a {
+  text-decoration: none;
+  color: #6c757d;
+  margin-right: 0.3rem;
+}
+.ds-breadcrumb a:hover { text-decoration: underline; }
+
+/* ====== Titles ====== */
+.ds-container h1 {
+  color: #101010;
+  font-weight: 700;
+}
+
+.ds-location {
+  background: #f1f3f5;
+  color: #495057;
+  padding: 0.3rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* ====== Gallery ====== */
+.ds-gallery-container {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  cursor: pointer;
+  height: 411px;
+}
+
+.ds-main-image {
+  flex: 2.6;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.ds-main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.ds-main-image:hover img {
+  transform: scale(1.05);
+}
+
+.ds-small-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1.1fr 1.1fr;
+  gap: 0.3rem;
+  flex: 2.5;
+  height: 100%;
+}
+
+.ds-small-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ds-small-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ds-overlay-wrapper .ds-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+/* ====== Main Layout ====== */
+.ds-main-content {
+  display: flex;
+  gap: 2rem;
+}
+
+.ds-left-column {
+  flex: 2.5;
+}
+
+.ds-right-column {
+  flex: 1.5;
+  min-width: 300px;
+}
+
+/* ====== Sections ====== */
+.ds-experience-section {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ds-experience-section.ds-light-bg { background: #f8f9fa; }
+
+/* ====== Badges ====== */
+.ds-badge {
+  display: inline-flex !important;
+  align-items: center;
+  padding: 0.5rem 1rem !important;
+  margin: 0.25rem;
+  border-radius: 6px !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  background: #a068d1 !important;
+  color: #fff !important;
+}
+
+/* ====== Offers ====== */
+.ds-offers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.ds-offer-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f1f3f5;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+/* ====== Host Card ====== */
+.ds-host-card {
+  background: #f4eefb;
+  color: #030303;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.ds-host-card img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  margin-bottom: 0.5rem;
+}
+
+/* ====== Quick Peek ====== */
+.ds-quick-peek-card {
+  background: #f4eefb;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.ds-quick-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+/* ====== Sticky Footer ====== */
+.ds-sticky-footer {
+  background: #fff;
+  border-top: 1px solid #dee2e6;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Apply button */
+.ds-apply-btn {
+  background: #a068d1;
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.ds-apply-btn:hover {
+  background: #713ca0;
+  transform: translateY(-2px);
+}
+
+/* ====== Login Modal ====== */
+.ds-login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5000;
+}
+
+.ds-login-content.advanced {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.25);
+}
+
+.ds-login-btn {
+  background: #a068d1;
+  color: #fff;
+  padding: 0.75rem 1.8rem;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.ds-login-btn:hover { background: #713ca0; }
+
+/* ====== Modal Overlay ====== */
+.ds-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+}
+
+.ds-modal-content {
+  position: relative;
+  width: 80%;
+  max-width: 900px;
+  height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+
+.ds-modal-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ds-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2rem;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+.ds-prev-btn,
+.ds-next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 8px;
+  z-index: 10001;
+}
+
+.ds-prev-btn { left: 10px; }
+.ds-next-btn { right: 10px; }
+
+.ds-prev-btn:hover,
+.ds-next-btn:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+/* +X More Overlay */
+.ds-overlay-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.ds-overlay-wrapper .ds-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.ds-overlay-wrapper:hover .ds-overlay {
+  background: rgba(0,0,0,0.8);
+}
