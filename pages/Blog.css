@@ -1,0 +1,111 @@
+/* Page spacing */
+.container {
+  padding-top: 50px;
+  padding-bottom: 60px;
+}
+
+/* Title */
+.container h1 {
+  font-weight: 800;
+  color: #222;
+  letter-spacing: 0.5px;
+}
+
+/* Card base */
+.card {
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(6px);
+  transition: all 0.35s ease;
+}
+
+/* Hover effect */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Image */
+.card-img-top {
+  height: 240px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* Zoom on hover */
+.card:hover .card-img-top {
+  transform: scale(1.02);
+}
+
+/* Body */
+.card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Title */
+.card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f1f1f;
+  line-height: 1.4;
+}
+
+/* Button */
+.card .btn {
+  align-self: flex-start;
+  background: linear-gradient(135deg, #7b5cff, #5a3dff);
+  border: none;
+  color: #fff;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* Button hover */
+.card .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(90, 61, 255, 0.35);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 210px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+    height: 190px;
+  }
+}
+
+/* Make card body stretch */
+.card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+}
+
+/* Push button to bottom so all align */
+.card .btn {
+  margin-top: auto;          /* 👈 This is the key line */
+  align-self: flex-start;
+  background: linear-gradient(135deg, #7b5cff, #5a3dff);
+  border: none;
+  color: #fff;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}

@@ -1,0 +1,176 @@
+
+
+/* Section - 1 */
+.about-section {
+  padding-top: 100px;  /* adjust value */
+}
+
+.about-heading {
+  font-family: "DM Sans", Georgia, 'Times New Roman', Times, serif;
+  font-size: 42px;
+  font-weight: bolder;
+}
+
+.extra-bold {
+  font-weight: 900; /* This is used in First line:<p> to bold the words of VolunTier_Hub*/
+}
+
+
+.about-img {
+  max-width: 550px;  /* not too small */
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* Button section -1 */
+.btn-custom {
+  background-color: #8b5cf6; /* Orange */
+  color: #fff;
+  border: none;
+  padding: 12px 30px;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: #7047cf; /* Darker orange */
+  transform: scale(1.05);
+}
+
+
+
+/* Card section - 2 */
+
+.mission-card {
+  background: #f9f9f9;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission-card:hover {
+  transform: translateY(-5px);
+box-shadow: 0 16px 35px rgba(139, 92, 246, 0.25);}
+
+.mission-icon {
+  width: 60px;
+  height: 60px;
+}
+
+
+/* What We Do Section 3 - Types of Volunteers Needed*/
+.what-we-do-section {
+  padding: 60px 0;
+  background: #f4f4f4;
+}
+
+/* Section Title */
+.what-we-do-section h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #222;
+  text-align: center;
+}
+
+.what-we-do-section p {
+  font-size: 1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+/* Scroll Wrapper (arrows + cards) */
+.card-scroll-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Scrollable Card Row */
+.card-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 10px 0;
+}
+
+.card-scroll::-webkit-scrollbar {
+  display: none; /* hide scrollbar */
+}
+
+/* Individual Cards */
+.card-scroll .card {
+  flex: 0 0 250px;     /* fixed card width */
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-scroll .card:hover {
+  transform: translateY(-8px);
+}
+
+.card-scroll .card-img-top {
+  height: 350px;
+  object-fit: cover;
+}
+
+.card-scroll .card-body {
+  padding: 30px;
+  text-align: center;
+}
+
+.card-scroll .card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-scroll .card-text {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+/* Scroll Buttons (Arrows) */
+.scroll-btn {
+  background: #8b5cf6;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  box-shadow: 0 16px 35px rgba(139, 92, 246, 0.25);
+  transition: background 0.3s ease-in-out;
+}
+
+.scroll-btn:hover {
+  background: #8b5cf6;
+}
+
+/* Left Button */
+.scroll-btn.left {
+  left: -70px;
+}
+
+/* Right Button */
+.scroll-btn.right {
+  right: -70px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-scroll .card {
+    flex: 0 0 200px; /* smaller cards on mobile */
+  }
+}
