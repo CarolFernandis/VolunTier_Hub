@@ -1,0 +1,76 @@
+.search-skill-row {
+  display: flex;
+  gap: 12px;
+}
+
+.search-input {
+  flex: 2;
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+.skill-select {
+  flex: 1;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Card */
+.opp-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.opp-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.opp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+}
+
+/* Bigger image */
+.opp-image-wrapper {
+  height: 200px;
+  overflow: hidden;
+}
+
+.opp-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Compact body */
+.opp-body {
+  padding: 14px 16px;
+}
+
+.opp-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.opp-location {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 6px;
+}
+
+.opp-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.opp-date {
+  font-size: 0.8rem;
+  color: #7a3cff;
+  font-weight: 600;
+}
