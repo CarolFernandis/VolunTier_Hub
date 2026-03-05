@@ -1,41 +1,102 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 
 export default function Register() {
+  const navigate = useNavigate();
+
   const [role, setRole] = useState("volunteer");
+  const [errors, setErrors] = useState({});
+
+  const validateForm = (data) => {
+    let newErrors = {};
+
+    // Name validation
+    if (!data.name.trim()) {
+      newErrors.name = "Name is required";
+    } else if (data.name.length < 3) {
+      newErrors.name = "Name must be at least 3 characters";
+    }
+
+    // Email validation
+    if (!data.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^\S+@\S+\.\S+$/.test(data.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    // Password validation
+    if (!data.password) {
+      newErrors.password = "Password is required";
+    } else if (data.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    return newErrors;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const newUser = {
+    const formData = {
       name: e.target.name.value,
       email: e.target.email.value,
       password: e.target.password.value,
       role: role,
     };
 
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const validationErrors = validateForm(formData);
 
-    // ✅ Check duplicate based on email + role
-    const userExists = existingUsers.find(
-      (user) =>
-        user.email === newUser.email &&
-        user.role === newUser.role
-    );
-
-    if (userExists) {
-      alert(`This email is already registered as ${newUser.role}!`);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
       return;
     }
 
-    const updatedUsers = [...existingUsers, newUser];
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    const userExists = existingUsers.find(
+      (user) =>
+        user.email === formData.email &&
+        user.role === formData.role
+    );
+
+    if (userExists) {
+      alert(`This email is already registered as ${formData.role}!`);
+      return;
+    }
+
+    const updatedUsers = [...existingUsers, formData];
     localStorage.setItem("users", JSON.stringify(updatedUsers));
 
     alert("Registration successful!");
 
-    e.target.reset();
-    setRole("volunteer");
+    navigate("/login");
+  };
+
+  // ✅ Google Login Simulation
+  const handleGoogleSignup = () => {
+    const googleUser = {
+      name: "Google User",
+      email: "googleuser@gmail.com",
+      password: "google-auth",
+      role: "volunteer",
+    };
+
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+    const userExists = existingUsers.find(
+      (user) => user.email === googleUser.email
+    );
+
+    if (!userExists) {
+      existingUsers.push(googleUser);
+      localStorage.setItem("users", JSON.stringify(existingUsers));
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(googleUser));
+
+    alert("Signed in with Google!");
+    navigate("/volunteer-dashboard");
   };
 
   return (
@@ -50,11 +111,20 @@ export default function Register() {
         <h6 className="title">We Welcome You To Our Community</h6>
 
         <div className="social-buttons">
-          <button className="social-btn google-btn" type="button">
+          <button
+            className="social-btn google-btn"
+            type="button"
+            onClick={handleGoogleSignup}
+          >
             <img alt="icon1" src="/src/assets/GoogleLogo.png" />
             Google
           </button>
-          <button className="social-btn facebook-btn" type="button">
+
+          <button
+            className="social-btn facebook-btn"
+            type="button"
+            onClick={() => alert("Facebook login coming soon!")}
+          >
             <img alt="icon2" src="/src/assets/FacebookLogo.png" />
             Facebook
           </button>
@@ -65,38 +135,22 @@ export default function Register() {
         </div>
 
         <form className="register-form" onSubmit={handleSubmit}>
-          <label htmlFor="name">Name</label>
-          <input
-            id="name"
-            name="name"
-            className="input-field"
-            type="text"
-            required
-          />
+          <label>Name</label>
+          <input name="name" className="input-field" type="text" />
+          {errors.name && <p className="error">{errors.name}</p>}
 
-          <label htmlFor="email">Email Address</label>
-          <input
-            id="email"
-            name="email"
-            className="input-field"
-            type="email"
-            required
-          />
+          <label>Email Address</label>
+          <input name="email" className="input-field" type="email" />
+          {errors.email && <p className="error">{errors.email}</p>}
 
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            className="input-field"
-            type="password"
-            required
-          />
+          <label>Password</label>
+          <input name="password" className="input-field" type="password" />
+          {errors.password && <p className="error">{errors.password}</p>}
 
           <div className="role-selection">
             <label>
               <input
                 type="radio"
-                name="role"
                 value="volunteer"
                 checked={role === "volunteer"}
                 onChange={(e) => setRole(e.target.value)}
@@ -107,7 +161,6 @@ export default function Register() {
             <label>
               <input
                 type="radio"
-                name="role"
                 value="host"
                 checked={role === "host"}
                 onChange={(e) => setRole(e.target.value)}
