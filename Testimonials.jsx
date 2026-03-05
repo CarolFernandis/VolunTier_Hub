@@ -35,7 +35,7 @@ export default function Testimonials() {
     { text: "Voluntier Hub inspires me every day to contribute more to society. A beautiful initiative!", name: "Ishika Malhotra", role: "Artist Volunteer", image: "https://i.pinimg.com/1200x/e1/14/15/e1141535cab3d315ed47aee3cb69a525.jpg" },
   ];
 
-  const [userTestimonials, setUserTestimonials] = useState(() => {
+   const [userTestimonials, setUserTestimonials] = useState(() => {
     const saved = localStorage.getItem("userTestimonials");
     return saved ? JSON.parse(saved) : [];
   });
@@ -48,7 +48,17 @@ export default function Testimonials() {
   }, [userTestimonials]);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value, files } = e.target;
+
+    if (files) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, image: reader.result });
+      };
+      reader.readAsDataURL(files[0]);
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleAddTestimonial = (e) => {
@@ -89,15 +99,34 @@ export default function Testimonials() {
 
             <div className="testimonial-form-body">
               <div className="form-row">
-                <input name="name" value={formData.name} onChange={handleChange} placeholder="Your Name" />
-                <input name="role" value={formData.role} onChange={handleChange} placeholder="Your Role" />
+                <input 
+                  name="name" 
+                  value={formData.name} 
+                  onChange={handleChange} 
+                  placeholder="Your Name" 
+                />
+                <input 
+                  name="role" 
+                  value={formData.role} 
+                  onChange={handleChange} 
+                  placeholder="Your Role" 
+                />
               </div>
 
               <div className="form-row">
-                <input name="image" value={formData.image} onChange={handleChange} placeholder="Image URL" />
+                <input 
+                  type="file" 
+                  accept="image/*" 
+                  onChange={handleChange} 
+                />
               </div>
 
-              <textarea name="text" value={formData.text} onChange={handleChange} placeholder="Write your testimonial..." />
+              <textarea 
+                name="text" 
+                value={formData.text} 
+                onChange={handleChange} 
+                placeholder="Write your testimonial..." 
+              />
             </div>
 
             <div className="testimonial-form-footer">
