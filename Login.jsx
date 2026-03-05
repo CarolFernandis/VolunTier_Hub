@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
   const [role, setRole] = useState("volunteer");
   const [showForgot, setShowForgot] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+
+  // ✅ Check if user already logged in
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("currentUser"));
+    if (storedUser) {
+      setCurrentUser(storedUser);
+    }
+  }, []);
+
+  // ✅ Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    setCurrentUser(null);
+    alert("Logged out successfully!");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +44,8 @@ export default function Login() {
     }
 
     localStorage.setItem("currentUser", JSON.stringify(matchedUser));
+    setCurrentUser(matchedUser);
+
     alert("Login successful!");
 
     if (matchedUser.role === "volunteer") {
@@ -62,6 +80,22 @@ export default function Login() {
     setShowForgot(false);
   };
 
+  // ✅ If already logged in → show logout UI only
+  if (currentUser) {
+    return (
+      <div className="register-container">
+        <div className="register-box" style={{ textAlign: "center" }}>
+          <h3>Welcome, {currentUser.name} 👋</h3>
+          <p>You are already logged in as {currentUser.role}.</p>
+
+          <button className="signup-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="register-container">
       <div className="register-box">
@@ -73,34 +107,21 @@ export default function Login() {
 
         <h6 className="title">Welcome Back to Our Community</h6>
 
-        <div className="social-buttons">
-          <button className="social-btn google-btn" type="button">
-            <img alt="icon1" src="/src/assets/GoogleLogo.png" />
-            Google
-          </button>
-          <button className="social-btn facebook-btn" type="button">
-            <img alt="icon2" src="/src/assets/FacebookLogo.png" />
-            Facebook
-          </button>
-        </div>
-
         <div className="divider">
-          <span>or Log in with</span>
+          <span>Log in with</span>
         </div>
 
         <form className="register-form" onSubmit={handleSubmit}>
-          <label htmlFor="email">Email Address</label>
+          <label>Email Address</label>
           <input
-            id="email"
             name="email"
             className="input-field"
             type="email"
             required
           />
 
-          <label htmlFor="password">Password</label>
+          <label>Password</label>
           <input
-            id="password"
             name="password"
             className="input-field"
             type="password"
@@ -111,7 +132,6 @@ export default function Login() {
             <label>
               <input
                 type="radio"
-                name="role"
                 value="volunteer"
                 checked={role === "volunteer"}
                 onChange={(e) => setRole(e.target.value)}
@@ -122,7 +142,6 @@ export default function Login() {
             <label>
               <input
                 type="radio"
-                name="role"
                 value="host"
                 checked={role === "host"}
                 onChange={(e) => setRole(e.target.value)}
@@ -136,7 +155,7 @@ export default function Login() {
           </button>
         </form>
 
-        {/* Forgot Password Link */}
+        {/* Forgot Password */}
         <div style={{ textAlign: "right", marginTop: "10px" }}>
           <button
             style={{
@@ -152,7 +171,6 @@ export default function Login() {
           </button>
         </div>
 
-        {/* Forgot Password Form */}
         {showForgot && (
           <form
             className="register-form"
