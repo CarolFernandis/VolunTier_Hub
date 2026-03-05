@@ -394,160 +394,144 @@
 
 
 /*                                                    Volunteer Dashboard                                                         */
-/* Main Wrapper */
-.dashboard-wrapper {
+
+.volunteer-dashboard {
+  display: flex;
   min-height: 100vh;
-  padding: 60px 8%;
-  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
-  font-family: "Poppins", "Segoe UI", sans-serif;
+  font-family: "Segoe UI", sans-serif;
+  background: #f4f6fb;
 }
 
-/* Top Section */
-.top-section {
-  margin-bottom: 40px;
-}
-
-.top-section h2 {
-  font-size: 32px;
-  font-weight: 600;
-  color: #6d28d9;
-  letter-spacing: 0.5px;
-}
-
-/* Stats Card */
-.stats-card {
-  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-  padding: 40px;
-  border-radius: 20px;
+/* Sidebar */
+.vd-sidebar {
+  width: 300px;
+  background: linear-gradient(180deg, #6a5acd, #7b2cbf);
   color: white;
-  margin-bottom: 40px;
-  text-align: center;
-  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.25);
-  transition: 0.3s ease;
+  padding: 30px 20px;
+  border-top-right-radius: 30px;
 }
 
-.stats-card:hover {
-  transform: translateY(-6px);
-}
-
-.stats-card h3 {
-  font-size: 18px;
-  font-weight: 400;
-  opacity: 0.9;
-}
-
-.stats-card h1 {
-  font-size: 60px;
-  margin-top: 10px;
-  font-weight: 700;
-}
-
-/* Main Cards */
-.main-card {
-  background: white;
-  padding: 35px;
-  border-radius: 20px;
+.logo {
   margin-bottom: 30px;
-  box-shadow: 0 10px 30px rgba(139, 92, 246, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid #ede9fe;
+  font-weight: 600;
 }
 
-.main-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.15);
+.profile-section {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 15px;
+  border-radius: 12px;
 }
 
-.main-card h3 {
-  font-size: 22px;
-  color: #6d28d9;
-  margin-bottom: 12px;
+.profile-section input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: none;
 }
 
-.main-card p {
-  color: #555;
-  font-size: 15px;
-  margin-bottom: 20px;
-}
-
-/* Violet Button */
-.violet-btn {
-  display: inline-block;
-  padding: 12px 28px;
-  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-  color: white;
-  text-decoration: none;
-  border-radius: 30px;
+.profile-section p {
+  margin: 6px 0;
   font-size: 14px;
+}
+
+.edit-btn,
+.save-btn {
+  background: white;
+  color: #6a5acd;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
   font-weight: 500;
-  transition: 0.3s ease;
-  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+  margin-top: 10px;
 }
 
-.violet-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+/* Main */
+.vd-main {
+  flex: 1;
+  padding: 40px;
 }
 
-/* Activity List */
+.vd-header h1 {
+  margin-bottom: 5px;
+}
+
+.vd-header p {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Stats */
+.vd-stats {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  width: 1300px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.stat-card h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* Cards */
+.vd-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.violet-btn {
+  background: #7b2cbf;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
 .activity-list {
-  margin-top: 15px;
-  padding-left: 20px;
-}
-
-.activity-list li {
-  margin-bottom: 10px;
-  color: #444;
-  font-size: 14px;
-}
-
-.activity-list li::marker {
-  color: #aa88f8;
-  font-weight: bold;
-}
-
-/* Empty State */
-.main-card p {
-  font-size: 15px;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .dashboard-wrapper {
-    padding: 40px 5%;
-  }
-
-  .stats-card h1 {
-    font-size: 45px;
-  }
-
-  .main-card {
-    padding: 25px;
-  }
+  list-style: none;
+  padding: 0;
 }
 
 .activity-item {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  padding: 12px;
-  background: #f5f3ff;
-  border-radius: 10px;
-  border: 1px solid #ede9fe;
+  margin-bottom: 10px;
 }
 
 .unapply-btn {
-  background: #ef4444;
+  background: crimson;
   color: white;
   border: none;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s ease;
 }
 
-.unapply-btn:hover {
-  background: #dc2626;
+.profile-image-container {
+  text-align: center;
+  margin-bottom: 15px;
 }
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #8a2be2;
+  margin-bottom: 10px;
+}
+
+.
+
