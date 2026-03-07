@@ -1,174 +1,319 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
-const HostDashboard = () => {
+// Dummy opportunity images
+import CleanUp03 from "../assets/CleanUp03.jpeg";
+import FoodDonation01 from "../assets/FoodDonation01.jpeg";
+import SeniorHelp02 from "../assets/SeniorHelp02.jpg";
+import MedicalHelp01 from "../assets/MedicalHelp01.jpg";
+import FieldWork01 from "../assets/FieldWork01.jpeg";
 
-  const defaultProfiles = [
-    {
-      id: 1,
-      name: "Green Earth Foundation",
-      location: "Mumbai, Maharashtra",
-      image: "https://i.pinimg.com/736x/58/80/94/5880947a46b1bc24324af9b70ff77900.jpg",
-      opportunities: 6,
-    },
-    {
-      id: 2,
-      name: "Food For All NGO",
-      location: "Pune, Maharashtra",
-      image: "https://i.pinimg.com/1200x/64/fa/d3/64fad395b35bf77ed1aadb4de16206d3.jpg",
-      opportunities: 4,
-    },
-    {
-      id: 3,
-      name: "Care & Smile Foundation",
-      location: "Nagpur, Maharashtra",
-      image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
-      opportunities: 8,
+export default function HostDashboard() {
+  const [currentHost, setCurrentHost] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [opportunities, setOpportunities] = useState([]);
+  const [totalApplicants, setTotalApplicants] = useState(0);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+
+    if (!user) {
+      navigate("/login");
+      return;
     }
-  ];
 
-  const [profiles, setProfiles] = useState(defaultProfiles);
-  const [orgName, setOrgName] = useState("");
-  const [search, setSearch] = useState("");
-  const [orgLocation, setOrgLocation] = useState("");
-  const [orgImage, setOrgImage] = useState("");
+    setCurrentHost(user);
 
-  const handleCreateProfile = (e) => {
-    e.preventDefault();
+    // Dummy opportunities
+    const dummyOps = [
+      {
+        id: 1,
+        title: "Volunteer in Community Clean-Up",
+        location: "Gorgaon, Mumbai",
+        image: CleanUp03,
+      },
+      {
+        id: 2,
+        title: "Volunteer in Food Distribution",
+        location: "Kolhapur",
+        image: FoodDonation01,
+      },
+      {
+        id: 3,
+        title: "Volunteer in Care Assistance",
+        location: "Panvel, Navi Mumbai",
+        image: SeniorHelp02,
+      },
+      {
+        id: 4,
+        title: "Volunteer in Medical Check-Up",
+        location: "Nagpur",
+        image: MedicalHelp01,
+      },
+      {
+        id: 5,
+        title: "Volunteer in Farm Work",
+        location: "Nashik",
+        image: FieldWork01,
+      },
+    ];
 
-    const newProfile = {
-      id: Date.now(),
-      name: orgName,
-      location: orgLocation,
-      image: orgImage || "https://via.placeholder.com/400x300",
-      opportunities: 0,
+    const postedOps =
+      JSON.parse(localStorage.getItem("postedOpportunities")) || [];
+
+    const ops = [...dummyOps, ...postedOps];
+
+    const loadApplications = () => {
+      const allApplications =
+        JSON.parse(localStorage.getItem("activities")) || [];
+
+      const normalize = (str) => str.trim().toLowerCase();
+
+      const opsWithApplicants = ops.map((op) => {
+        const applicants = allApplications.filter(
+          (app) => normalize(app.title) === normalize(op.title)
+        );
+
+        return { ...op, applicants };
+      });
+
+      setOpportunities(opsWithApplicants);
+
+      const total = opsWithApplicants.reduce(
+        (sum, op) => sum + op.applicants.length,
+        0
+      );
+
+      setTotalApplicants(total);
     };
 
-    setProfiles([...profiles, newProfile]);
-    setOrgName("");
-    setOrgLocation("");
-    setOrgImage("");
+    loadApplications();
+
+    const handleStorageChange = () => {
+      loadApplications();
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () =>
+      window.removeEventListener("storage", handleStorageChange);
+
+  }, [navigate]);
+
+  const handleChange = (e) => {
+    setCurrentHost({
+      ...currentHost,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  // ✅ FIXED SEARCH FILTER
-  const filteredProfiles = profiles.filter((profile) =>
-    profile.name.toLowerCase().includes(search.toLowerCase()) ||
-    profile.location.toLowerCase().includes(search.toLowerCase())
-  );
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setCurrentHost({
+        ...currentHost,
+        profileImage: reader.result,
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const handleSave = () => {
+    const allHosts = JSON.parse(localStorage.getItem("hosts")) || [];
+
+    const updatedHosts = allHosts.map((host) =>
+      host.email === currentHost.email ? currentHost : host
+    );
+
+    localStorage.setItem("hosts", JSON.stringify(updatedHosts));
+    localStorage.setItem("currentUser", JSON.stringify(currentHost));
+
+    setIsEditing(false);
+  };
+
+  // LOGOUT FUNCTION
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
+
+  if (!currentHost) return null;
 
   return (
-    <div className="premium-layout">
+    <div className="host-layout">
 
-      <div className="premium-sidebar">
-        <h2>VolunTier Hub</h2>
+      {/* Sidebar */}
 
-        <form onSubmit={handleCreateProfile} className="premium-form">
-          <h4>Create Host Profile</h4>
+      <div className="host-sidebar-purple">
 
-          <input
-            type="text"
-            placeholder="Organization Name"
-            value={orgName}
-            onChange={(e) => setOrgName(e.target.value)}
-            required
-          />
+        <h1 className="sidebar-title">VolunTier Hub</h1>
 
-          <input
-            type="text"
-            placeholder="Location"
-            value={orgLocation}
-            onChange={(e) => setOrgLocation(e.target.value)}
-            required
-          />
+        <div className="profile-card">
 
-          <input
-            type="text"
-            placeholder="Image URL (optional)"
-            value={orgImage}
-            onChange={(e) => setOrgImage(e.target.value)}
-          />
+          <h2>My Profile</h2>
 
-          <button type="submit">Create</button>
-        </form>
+          <div className="profile-image-wrapper">
+            {currentHost.profileImage ? (
+              <img
+                src={currentHost.profileImage}
+                alt="Host"
+                className="profile-image"
+              />
+            ) : (
+              <div className="profile-placeholder">
+                {currentHost.name?.charAt(0)}
+              </div>
+            )}
+          </div>
 
-        <Link to="/host/post" className="premium-btn">
-          ➕ Post Opportunity
-        </Link>
+          {isEditing && (
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
+          )}
+
+          {isEditing ? (
+            <>
+              <input
+                name="name"
+                value={currentHost.name}
+                onChange={handleChange}
+                placeholder="Name"
+              />
+
+              <input
+                name="place"
+                value={currentHost.place}
+                onChange={handleChange}
+                placeholder="Place"
+              />
+
+              <input
+                name="contact"
+                value={currentHost.contact}
+                onChange={handleChange}
+                placeholder="Contact"
+              />
+
+              <button className="save-btn" onClick={handleSave}>
+                Save
+              </button>
+            </>
+          ) : (
+            <>
+              <p>
+                <strong>Name:</strong> {currentHost.name}
+              </p>
+
+              <p>
+                <strong>Place:</strong> {currentHost.place}
+              </p>
+
+              <p>
+                <strong>Email:</strong> {currentHost.email}
+              </p>
+
+              <p>
+                <strong>Contact:</strong> {currentHost.contact}
+              </p>
+
+              <button
+                className="edit-profile-btn"
+                onClick={() => setIsEditing(true)}
+              >
+                Edit Profile
+              </button>
+            </>
+          )}
+
+          <Link to="/host/post" className="new-event-btn">
+            + New Event
+          </Link>
+
+          {/* LOGOUT BUTTON */}
+          <button
+            className="logout-btn"
+            onClick={handleLogout}
+            style={{
+              marginTop: "10px",
+              width: "100%",
+              padding: "10px",
+              background: "#e74c3c",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer"
+            }}
+          >
+            Logout
+          </button>
+
+        </div>
       </div>
 
-      <div className="premium-content">
+      {/* Main Content */}
 
-        <div className="dashboard-header">
-          <h1>🏢 Host Dashboard</h1>
-          <p>Manage multiple organizations and opportunities</p>
+      <div className="host-main">
+
+        <div className="host-stats">
+
+          <div className="stat-card">
+            <h2>{opportunities.length}</h2>
+            <p>No. of Events</p>
+          </div>
+
+          <div className="stat-card">
+            <h2>{totalApplicants}</h2>
+            <p>No. of Applicants</p>
+          </div>
+
         </div>
 
-        {/* SEARCH */}
-        <input
-          type="text"
-          placeholder="🔍 Search profiles..."
-          className="search-input"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <h3 className="section-title">Events Created by You</h3>
 
-        <div className="stats-row">
-          <div className="stat-box">
-            <h3>{profiles.length}</h3>
-            <p>Total Profiles</p>
-          </div>
-          <div className="stat-box">
-            <h3>
-              {profiles.reduce((sum, p) => sum + p.opportunities, 0)}
-            </h3>
-            <p>Total Opportunities</p>
-          </div>
-        </div>
+        <div className="opp-grid-three">
 
-        <div className="premium-grid">
-          {filteredProfiles.map((profile) => (
-            <div key={profile.id} className="premium-card">
-              <div
-                className="card-image"
-                style={{ backgroundImage: `url(${profile.image})` }}
-              ></div>
+          {opportunities.map((opp) => (
+            <div className="opp-card" key={opp.id}>
 
-              <div className="card-content">
-                <h3>{profile.name}</h3>
-                <p>{profile.location}</p>
-
-                <div className="card-footer">
-                  <span>{profile.opportunities} Opportunities</span>
-                  <div>
-                    <Link to="/host/post">Post</Link>
-                    <Link to={`/host/activities/${profile.id}`}>
-                    View My Activities
-                  </Link>
-
-
-
-                  </div>
-                </div>
+              <div className="opp-image-wrapper">
+                <img src={opp.image} alt={opp.title} />
               </div>
+
+              <div className="opp-body">
+
+                <h5 className="opp-title">{opp.title}</h5>
+
+                <p className="opp-location">{opp.location}</p>
+
+                <p className="opp-description">
+                  Volunteer opportunity created by you.
+                </p>
+
+                <Link
+                  to={`/applicants/${opp.id}?title=${encodeURIComponent(
+                    opp.title
+                  )}`}
+                  className="applicants-link"
+                >
+                  👥 Total Applicants: {opp.applicants.length}
+                </Link>
+
+              </div>
+
             </div>
           ))}
+
         </div>
 
-        {/* Optional: show message if no results */}
-        {filteredProfiles.length === 0 && (
-          <p style={{ marginTop: "20px", color: "#888" }}>
-            No profiles found.
-          </p>
-        )}
-
-        <Link to="/" className="back-home">
-          ⬅ Back to Home
-        </Link>
-
       </div>
+
     </div>
   );
-};
-
-export default HostDashboard;
+}
