@@ -174,3 +174,48 @@ box-shadow: 0 16px 35px rgba(139, 92, 246, 0.25);}
     flex: 0 0 200px; /* smaller cards on mobile */
   }
 }
+
+
+/* Donation Section */
+
+.donation-section{
+  padding: 80px 0;
+}
+
+.donation-heading{
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.donation-text{
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.donation-img{
+  max-width: 450px;
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  box-shadow: 0 16px 35px rgba(0,0,0,0.15);
+}
+
+.donate-btn{
+  background:#8b5cf6;
+  color:white;
+  border:none;
+  padding:14px 30px;
+  font-size:18px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.donate-btn:hover{
+  background:#7047cf;
+  transform:scale(1.05);
+}
+
