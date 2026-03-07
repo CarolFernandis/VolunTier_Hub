@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./CleanUp.css";
 
 // --- Gallery Images ---
@@ -57,7 +57,7 @@ const experienceData = {
     totalVolunteersNeeded: 4,
   },
   locationDetails:
-    "Are you passionate about dogs, animal welfare, and community service? We are dedicated to providing a safe, loving, and nurturing environment for dogs awaiting their forever homes, and are looking for volunteers to join our team.",
+    "Are you passionate about community service and environmental care? Join us to help clean up local areas, promote awareness, and make a difference.",
 };
 
 // --- Badge Component ---
@@ -76,7 +76,7 @@ const QuickPeekItem = ({ icon, text }) => (
   </div>
 );
 
-// --- Image Gallery with "+X More" ---
+// --- Image Gallery ---
 const ImageGallery = ({ images }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -89,7 +89,6 @@ const ImageGallery = ({ images }) => {
     setCurrentIndex(index);
     setIsModalOpen(true);
   };
-
   const closeModal = () => setIsModalOpen(false);
   const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
   const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
@@ -121,16 +120,10 @@ const ImageGallery = ({ images }) => {
       {isModalOpen && (
         <div className="cu-modal-overlay" onClick={closeModal}>
           <div className="cu-modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="cu-close-btn" onClick={closeModal}>
-              &times;
-            </button>
-            <button className="cu-prev-btn" onClick={prevImage}>
-              &#10094;
-            </button>
+            <button className="cu-close-btn" onClick={closeModal}>&times;</button>
+            <button className="cu-prev-btn" onClick={prevImage}>&#10094;</button>
             <img src={images[currentIndex]} alt="Zoomed" />
-            <button className="cu-next-btn" onClick={nextImage}>
-              &#10095;
-            </button>
+            <button className="cu-next-btn" onClick={nextImage}>&#10095;</button>
           </div>
         </div>
       )}
@@ -142,53 +135,49 @@ const ImageGallery = ({ images }) => {
 export default function CleanUp() {
   const { host, details, work, inclusions, quickPeek, requirements, locationDetails } = experienceData;
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const navigate = useNavigate();
 
-  
+  // --- Apply Functionality ---
   const handleApplyClick = () => {
-  const user = JSON.parse(localStorage.getItem("currentUser"));
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user) {
+      setShowLoginPrompt(true);
+      return;
+    }
 
-  if (!user) {
-    setShowLoginPrompt(true);
-    return;
-  }
+    const existingActivities = JSON.parse(localStorage.getItem("activities")) || [];
+    const alreadyJoined = existingActivities.find(
+      (activity) => activity.email === user.email && activity.title === details.title
+    );
 
-  // Get all activities
-  const existingActivities =
-    JSON.parse(localStorage.getItem("activities")) || [];
+    if (alreadyJoined) {
+      alert("You have already joined this opportunity!");
+      return;
+    }
 
-  // Check if already joined
-  const alreadyJoined = existingActivities.find(
-    (activity) =>
-      activity.email === user.email &&
-      activity.title === details.title
-  );
+    const newActivity = {
+      email: user.email,
+      name: user.name || "Anonymous",
+      phone: user.contact || user.phone || "N/A",
+      profileImage: user.profileImage || "",
+      title: details.title,
+      location: details.locationName,
+      date: new Date().toLocaleDateString(),
+      
+    };
 
-  if (alreadyJoined) {
-    alert("You have already joined this opportunity!");
-    return;
-  }
+    const updatedActivities = [...existingActivities, newActivity];
+    localStorage.setItem("activities", JSON.stringify(updatedActivities));
 
-  const newActivity = {
-    email: user.email,
-    title: details.title,
-    location: details.locationName,
-    date: new Date().toLocaleDateString(),
+    // Trigger storage event for dashboard real-time updates
+    window.dispatchEvent(new Event("storage"));
+
+    alert("Successfully Joined!");
   };
-
-  const updatedActivities = [...existingActivities, newActivity];
-
-  localStorage.setItem("activities", JSON.stringify(updatedActivities));
-
-  alert("Successfully Joined!");
-};
-
 
   return (
     <div className="cu-container">
-      <h1 className="cu-page-heading">{/*Volunteer Opportunities at Mumbai*/}</h1>
-
       <div className="cu-breadcrumb">
         <a href="#">Opportunity</a> / <a href="#">Gorgaon</a> / Mumbai
       </div>
@@ -210,9 +199,7 @@ export default function CleanUp() {
             <h3>What You Get:</h3>
             <div className="cu-offers">
               {details.offer.map((item, idx) => (
-                <div className="cu-offer-item" key={idx}>
-                  <i className="bi bi-star-fill"></i> {item}
-                </div>
+                <div className="cu-offer-item" key={idx}><i className="bi bi-star-fill"></i> {item}</div>
               ))}
             </div>
           </section>
@@ -221,14 +208,10 @@ export default function CleanUp() {
             <h2>Commitment & Skills</h2>
             <div className="cu-workload">
               <Badge icon="clock-history">{work.hoursPerWeek}</Badge>
-              {work.roles.map((role, idx) => (
-                <Badge key={idx} icon="code-slash">{role}</Badge>
-              ))}
+              {work.roles.map((role, idx) => <Badge key={idx} icon="code-slash">{role}</Badge>)}
               <Badge icon="calendar-check">{work.daysOffPerWeek} off per week</Badge>
             </div>
-            <div className="cu-qualities">
-              {work.qualities.map((q, idx) => <Badge key={idx}>{q}</Badge>)}
-            </div>
+            <div className="cu-qualities">{work.qualities.map((q, idx) => <Badge key={idx}>{q}</Badge>)}</div>
           </section>
 
           <section className="cu-experience-section">
