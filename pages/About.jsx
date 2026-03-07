@@ -1,6 +1,6 @@
 // About.jsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Section 1
 import aboutus from "../assets/aboutus.jpeg";
@@ -21,9 +21,13 @@ import Skilled from "../assets/Skilled.jpg";
 import Campaign from "../assets/Campaign.jpg";
 import Plant from "../assets/Plant.jpg";
 
+import donation from "../assets/donation.jpeg";
+
 import "./About.css";
 
 export default function About() {
+
+  const navigate = useNavigate();
   const scrollCards = (scrollOffset) => {
     const container = document.getElementById("volunteer-scroll");
     if (container) {
@@ -203,6 +207,51 @@ export default function About() {
           </div>
         </div>
       </section>
+
+   {/* Donation Section */}
+<section
+  className="donation-section py-5"
+  style={{ background: "#f6f7fb" }}
+>
+  <div className="container">
+    <div className="row align-items-center">
+
+      {/* Left Image */}
+      <div className="col-lg-6 text-center">
+        <img
+          src={donation}
+          alt="Donate"
+          className="donation-img"
+        />
+      </div>
+
+      {/* Right Content */}
+      <div className="col-lg-6">
+        <h2 className="donation-heading">
+          Support Our Mission
+        </h2>
+
+        <p className="donation-text">
+          Your donation helps us expand volunteering opportunities,
+          support NGOs, and create meaningful community impact.
+          Every contribution allows us to connect more volunteers
+          with organizations that need support.
+        </p>
+
+        <p className="donation-text">
+          Even a small amount can help organize events, provide
+          resources for volunteers, and support social initiatives
+          across communities.
+        </p>
+
+        <button className="donate-btn" onClick={() => navigate("/donate")} >
+         Donate Now
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
     </React.Fragment>
   );
 }
