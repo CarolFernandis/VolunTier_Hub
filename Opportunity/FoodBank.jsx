@@ -148,8 +148,7 @@ export default function FoodBank() {
   }
 
   // Get all activities
-  const existingActivities =
-    JSON.parse(localStorage.getItem("activities")) || [];
+  const existingActivities = JSON.parse(localStorage.getItem("activities")) || [];
 
   // Check if already joined
   const alreadyJoined = existingActivities.find(
@@ -165,18 +164,23 @@ export default function FoodBank() {
 
   const newActivity = {
     email: user.email,
+    name: user.name || "Anonymous",
+    phone: user.contact || user.phone || "N/A",
+    profileImage: user.profileImage || "",
     title: details.title,
     location: details.locationName,
     date: new Date().toLocaleDateString(),
+    
   };
 
   const updatedActivities = [...existingActivities, newActivity];
-
   localStorage.setItem("activities", JSON.stringify(updatedActivities));
+
+  // Trigger storage event to update HostDashboard in real-time
+  window.dispatchEvent(new Event("storage"));
 
   alert("Successfully Joined!");
 };
-
 
   return (
     <div className="fb-container">
