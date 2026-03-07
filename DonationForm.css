@@ -1,0 +1,62 @@
+.donation-page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#f3e8ff;
+  padding:40px;
+}
+
+.donation-card{
+  background:white;
+  width:500px;
+  padding:40px;
+  border-radius:14px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+.donation-title{
+  text-align:center;
+  margin-bottom:10px;
+  color:#6b21a8;
+}
+
+.donation-subtitle{
+  text-align:center;
+  margin-bottom:25px;
+  color:#666;
+}
+
+.donation-form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.donation-form input,
+.donation-form select,
+.donation-form textarea{
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #d8b4fe;
+  background:#faf5ff;
+}
+
+.donation-form textarea{
+  resize:none;
+  height:80px;
+}
+
+.donate-btn{
+  background:#8b5cf6;
+  color:white;
+  border:none;
+  padding:14px;
+  border-radius:8px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.donate-btn:hover{
+  background:#7c3aed;
+}
