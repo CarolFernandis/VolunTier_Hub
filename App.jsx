@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer"; // Footer → Your footer that 
 
 import Home from "./pages/Home";
 import About from "./pages/About";
+import DonationForm from "./pages/DonationForm";
 import Opportunity from "./pages/Opportunity";
 import Blog from "./pages/Blog";
 import Testimonials from "./pages/Testimonials";
@@ -19,6 +20,9 @@ import HostDashboard from "./pages/HostDashboard";
 import PostOpportunity from "./pages/PostOpportunity";
 import HostActivities from "./pages/HostActivities";
 import HostProfile from "./pages/HostProfile";
+
+//Applicants Page
+import ApplicantsPage from "./pages/ApplicantsPage";
 
 //Blog pages
 import BlogPage1 from "./pages/BlogPage1";
@@ -78,7 +82,7 @@ import ForestClean from "./pages/Opportunity/ForestClean";
 import PlantTrees from "./pages/Opportunity/PlantTrees";
 
 
-
+import OpportunityDetails from "./pages/Opportunity/OpportunityDetails";
 
 
 
@@ -95,6 +99,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/donate" element={<DonationForm />} />
             <Route path="/opportunity" element={<Opportunity />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/testimonials" element={<Testimonials />} />
@@ -134,8 +139,8 @@ const App = () => {
             <Route path="/blog/mula" element={<BlogPage23 />} />
             <Route path="/blog/ganga" element={<BlogPage24 />} />
 
-
-
+            {/* Dynamic Opportunity Page */}
+            <Route path="/opportunity/:id" element={<OpportunityDetails />} />
 
 
 
@@ -174,10 +179,15 @@ const App = () => {
             <Route path="/opportunity/plantrees" element={<PlantTrees />} />
             <Route path="/opportunity/ruralschools" element={<RuralSchools />} />
             <Route path="/opportunity/seniorcitizens" element={<SeniorCitizens />} />
+
+      
+
+
             
+            {/* Applicant Pages */}
+            <Route path="/applicants/:id" element={<ApplicantsPage />} />
 
-
-
+            
            
           </Routes>
         </main>
