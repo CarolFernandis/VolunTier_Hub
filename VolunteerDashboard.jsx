@@ -28,6 +28,12 @@ export default function VolunteerDashboard() {
     setActivities(userActivities);
   }, [navigate]);
 
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
+
   // Handle input change
   const handleChange = (e) => {
     setCurrentUser({
@@ -154,6 +160,25 @@ export default function VolunteerDashboard() {
             </>
           )}
         </div>
+
+        {/* LOGOUT BUTTON */}
+        <button
+          className="logout-btn"
+          onClick={handleLogout}
+          style={{
+            marginTop: "20px",
+            padding: "10px",
+            width: "100%",
+            background: "#e74c3c",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer"
+          }}
+        >
+          Logout
+        </button>
+
       </div>
 
       {/* MAIN CONTENT */}
