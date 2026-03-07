@@ -1,0 +1,60 @@
+.applicants-page{
+  padding:40px;
+  background:#f6f7fb;
+  min-height:100vh;
+}
+
+.applicants-title{
+  font-size:28px;
+  font-weight:600;
+  margin-bottom:30px;
+}
+
+.applicants-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+}
+
+.applicant-card{
+  background:white;
+  border-radius:12px;
+  padding:25px;
+  text-align:center;
+  box-shadow:0 5px 12px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+
+.applicant-card:hover{
+  transform:translateY(-6px);
+}
+
+.applicant-avatar{
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  background:#6a5acd;
+  color:white;
+  font-size:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:auto;
+  margin-bottom:15px;
+}
+
+.applicant-card h3{
+  font-size:18px;
+  margin-bottom:6px;
+}
+
+.applicant-card p{
+  font-size:14px;
+  color:#555;
+}
+
+.applied-date{
+  color:#888;
+  font-size:13px;
+  margin-top:8px;
+}
