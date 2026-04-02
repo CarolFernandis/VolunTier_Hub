@@ -3,374 +3,146 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
 export default function Login() {
-
   const navigate = useNavigate();
-
   const [role, setRole] = useState("volunteer");
   const [showForgot, setShowForgot] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // Check if already logged in
+  // Check if already logged in on page load
   useEffect(() => {
-
-    const storedUser = JSON.parse(
-      localStorage.getItem("currentUser")
-    );
-
+    const storedUser = JSON.parse(localStorage.getItem("currentUser"));
     if (storedUser) {
       setCurrentUser(storedUser);
-
+      // Auto-redirect if session exists
       if (storedUser.role === "volunteer") {
         navigate("/volunteer-dashboard");
       } else {
         navigate("/host-dashboard");
       }
     }
-
   }, [navigate]);
 
-
-
-  // Logout
   const handleLogout = () => {
-
     localStorage.removeItem("currentUser");
     setCurrentUser(null);
-
     alert("Logged out successfully!");
-
     navigate("/login");
-
   };
 
-
-
-  // Login
-  const handleSubmit = (e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    const loginData = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+      role: role, 
+    };
 
-    const users =
-      JSON.parse(localStorage.getItem("users")) || [];
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(loginData),
+      });
 
-    const matchedUser = users.find(
-      (user) =>
-        user.email === email &&
-        user.password === password &&
-        user.role === role
-    );
+      const data = await response.json();
 
-    if (!matchedUser) {
-      alert("Invalid email, password or role!");
-      return;
+      if (response.ok) {
+        localStorage.setItem("currentUser", JSON.stringify(data.user));
+        setCurrentUser(data.user);
+        alert("Login successful!");
+
+        if (data.user.role === "volunteer") {
+          navigate("/volunteer-dashboard");
+        } else {
+          navigate("/host-dashboard");
+        }
+      } else {
+        alert(data.message || "Login failed!");
+      }
+    } catch (error) {
+      console.error("Login Error:", error);
+      alert("Server error. Is your backend running on port 5000?");
     }
-
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify(matchedUser)
-    );
-
-    setCurrentUser(matchedUser);
-
-    alert("Login successful!");
-
-    if (matchedUser.role === "volunteer") {
-      navigate("/volunteer-dashboard");
-    } else {
-      navigate("/host-dashboard");
-    }
-
   };
 
-
-
-  // Reset Password
+  // NOTE: This currently only works for local data. 
+  // We will need a Backend route to fix this for MongoDB!
   const handlePasswordReset = (e) => {
-
     e.preventDefault();
-
-    const email = e.target.resetEmail.value;
-    const newPassword = e.target.newPassword.value;
-    const resetRole = e.target.resetRole.value;
-
-    const users =
-      JSON.parse(localStorage.getItem("users")) || [];
-
-    const userIndex = users.findIndex(
-      (user) =>
-        user.email === email &&
-        user.role === resetRole
-    );
-
-    if (userIndex === -1) {
-      alert("User not found!");
-      return;
-    }
-
-    users[userIndex].password = newPassword;
-
-    localStorage.setItem(
-      "users",
-      JSON.stringify(users)
-    );
-
-    alert("Password updated successfully!");
-
+    alert("Password reset is currently disabled. Please contact the administrator.");
     setShowForgot(false);
-
   };
 
-
-
-  // If already logged in
+  // UI rendering remains the same as your provided code...
   if (currentUser) {
-
     return (
-
       <div style={{ display: "flex" }}>
-
-        {/* LEFT LOGOUT SIDEBAR */}
-        <div
-          style={{
-            width: "200px",
-            height: "100vh",
-            background: "#f5f5f5",
-            padding: "20px",
-            borderRight: "1px solid #ddd"
-          }}
-        >
+        <div style={{ width: "200px", height: "100vh", background: "#f5f5f5", padding: "20px", borderRight: "1px solid #ddd" }}>
           <h4>Menu</h4>
-
-          <button
-            onClick={handleLogout}
-            style={{
-              width: "100%",
-              padding: "10px",
-              marginTop: "20px",
-              background: "#ff4d4d",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-              borderRadius: "6px"
-            }}
-          >
+          <button onClick={handleLogout} style={{ width: "100%", padding: "10px", marginTop: "20px", background: "#ff4d4d", color: "white", border: "none", cursor: "pointer", borderRadius: "6px" }}>
             Logout
           </button>
         </div>
-
-
-
-        {/* MAIN CONTENT */}
-        <div
-          className="register-container"
-          style={{ flex: 1 }}
-        >
-
-          <div
-            className="register-box"
-            style={{ textAlign: "center" }}
-          >
-
+        <div className="register-container" style={{ flex: 1 }}>
+          <div className="register-box" style={{ textAlign: "center" }}>
             <h3>Welcome, {currentUser.name} 👋</h3>
-
-            <p>
-              You are logged in as {currentUser.role}
-            </p>
-
+            <p>You are logged in as {currentUser.role}</p>
           </div>
-
         </div>
-
       </div>
-
     );
   }
 
-
-
   return (
-
     <div className="register-container">
-
       <div className="register-box">
-
         <div className="logo">
-          <a href="/">
-            <img
-              src="/src/assets/Voluntier_Hub.png"
-              alt="logo"
-            />
-          </a>
+          <a href="/"><img src="/src/assets/Voluntier_Hub.png" alt="logo" /></a>
         </div>
+        <h6 className="title">Welcome Back to Our Community</h6>
+        <div className="divider"><span>Log in</span></div>
 
-        <h6 className="title">
-          Welcome Back to Our Community
-        </h6>
-
-        <div className="divider">
-          <span>Log in</span>
-        </div>
-
-
-
-        <form
-          className="register-form"
-          onSubmit={handleSubmit}
-        >
-
+        <form className="register-form" onSubmit={handleSubmit}>
           <label>Email</label>
-
-          <input
-            type="email"
-            name="email"
-            className="input-field"
-            required
-          />
-
+          <input type="email" name="email" className="input-field" required />
           <label>Password</label>
-
-          <input
-            type="password"
-            name="password"
-            className="input-field"
-            required
-          />
-
-
+          <input type="password" name="password" className="input-field" required />
+          
           <div className="role-selection">
-
-            <label>
-              <input
-                type="radio"
-                value="volunteer"
-                checked={role === "volunteer"}
-                onChange={(e) =>
-                  setRole(e.target.value)
-                }
-              />
-              Volunteer
-            </label>
-
-            <label>
-              <input
-                type="radio"
-                value="host"
-                checked={role === "host"}
-                onChange={(e) =>
-                  setRole(e.target.value)
-                }
-              />
-              Host
-            </label>
-
+            <label><input type="radio" value="volunteer" checked={role === "volunteer"} onChange={(e) => setRole(e.target.value)} /> Volunteer</label>
+            <label><input type="radio" value="host" checked={role === "host"} onChange={(e) => setRole(e.target.value)} /> Host</label>
           </div>
 
-          <button
-            type="submit"
-            className="signup-btn"
-          >
-            Log In
-          </button>
-
+          <button type="submit" className="signup-btn">Log In</button>
         </form>
 
-
-
-        <div
-          style={{
-            textAlign: "right",
-            marginTop: "10px"
-          }}
-        >
-
-          <button
-            style={{
-              background: "none",
-              border: "none",
-              color: "#007bff",
-              cursor: "pointer"
-            }}
-            onClick={() =>
-              setShowForgot(!showForgot)
-            }
-          >
+        <div style={{ textAlign: "right", marginTop: "10px" }}>
+          <button style={{ background: "none", border: "none", color: "#007bff", cursor: "pointer" }} onClick={() => setShowForgot(!showForgot)}>
             Forgot Password?
           </button>
-
         </div>
-
-
 
         {showForgot && (
-
-          <form
-            className="register-form"
-            style={{ marginTop: "15px" }}
-            onSubmit={handlePasswordReset}
-          >
-
+          <form className="register-form" style={{ marginTop: "15px" }} onSubmit={handlePasswordReset}>
             <label>Email</label>
-
-            <input
-              type="email"
-              name="resetEmail"
-              className="input-field"
-              required
-            />
-
+            <input type="email" name="resetEmail" className="input-field" required />
             <label>Select Role</label>
-
-            <select
-              name="resetRole"
-              className="input-field"
-              required
-            >
-              <option value="volunteer">
-                Volunteer
-              </option>
-              <option value="host">
-                Host
-              </option>
+            <select name="resetRole" className="input-field" required>
+              <option value="volunteer">Volunteer</option>
+              <option value="host">Host</option>
             </select>
-
             <label>New Password</label>
-
-            <input
-              type="password"
-              name="newPassword"
-              className="input-field"
-              required
-            />
-
-            <button
-              type="submit"
-              className="signup-btn"
-            >
-              Reset Password
-            </button>
-
+            <input type="password" name="newPassword" className="input-field" required />
+            <button type="submit" className="signup-btn">Reset Password</button>
           </form>
-
         )}
 
-
-
         <div className="signin-link">
-
           <h6>Don't have an Account?</h6>
-
-          <Link to="/register">
-            Sign Up
-          </Link>
-
+          <Link to="/register">Sign Up</Link>
         </div>
-
       </div>
-
     </div>
-
   );
 }
